@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+
+</head>
+<body>
+
+    <h1>Catálogo de Productos</h1>
+
+    <div class="productos-container">
+        <div class="productoCatalogo">
+            <div class="producto-nombre">Producto 1</div>
+            <div class="producto-precio">$10.00</div>
+            <button class="agregar-al-carrito" title="Agregar al Carrito">
+                <img src="images/anadir-al-carrito.png" alt="Agregar al carrito" class="imagen-carrito">
+            </button>
+        </div>
+        <div class="productoCatalogo">
+            <div class="producto-nombre">Producto 2</div>
+            <div class="producto-precio">$15.50</div>
+            <button class="agregar-al-carrito" title="Agregar al Carrito">
+                <img src="images/anadir-al-carrito.png" alt="Agregar al carrito" class="imagen-carrito">
+            </button>
+        </div>
+        <div class="productoCatalogo">
+            <div class="producto-nombre">Producto 3</div>
+            <div class="producto-precio">$7.25</div>
+            <button class="agregar-al-carrito" title="Agregar al Carrito">
+                <img src="images/anadir-al-carrito.png" alt="Agregar al carrito" class="imagen-carrito">
+            </button>
+        </div>
+        <!-- Agrega más productos aquí si quieres -->
+    </div>
+
+    <!-- Carrito visible al final -->
+    <div class="carrito-slide">
+        <h2>Carrito de Compras</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="carrito-body">
+                <!-- Filas del carrito -->
+            </tbody>
+        </table>
+        <div>Total: $<span id="total-carrito">0.00</span></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let carrito = [];
+
+            function agregarAlCarrito(button) {
+                const producto = button.closest('.productoCatalogo');
+                const nombre = producto.querySelector('.producto-nombre').innerText;
+                const precioTexto = producto.querySelector('.producto-precio').innerText;
+                const precio = parseFloat(precioTexto.replace(/[^\d.-]/g, ''));
+
+                const existente = carrito.find(p => p.nombre === nombre);
+
+                if (existente) {
+                    existente.cantidad++;
+                    existente.total = existente.cantidad * existente.precio;
+                } else {
+                    carrito.push({
+                        nombre,
+                        precio,
+                        cantidad: 1,
+                        total: precio
+                    });
+                }
+
+                actualizarCarrito();
+            }
+
+            function actualizarCarrito() {
+                const tbody = document.getElementById('carrito-body');
+                tbody.innerHTML = '';
+
+                let total = 0;
+
+                carrito.forEach(p => {
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td>${p.nombre}</td>
+                        <td>$${p.precio.toFixed(2)}</td>
+                        <td>${p.cantidad}</td>
+                        <td>$${p.total.toFixed(2)}</td>
+                    `;
+                    tbody.appendChild(fila);
+                    total += p.total;
+                });
+
+                document.getElementById('total-carrito').innerText = total.toFixed(2);
+            }
+
+            document.querySelectorAll('.agregar-al-carrito').forEach(boton => {
+                boton.addEventListener('click', function () {
+                    agregarAlCarrito(boton);
+                });
+            });
+        });
+    </script>
+
+</body
+
+
+</body>
+</html>

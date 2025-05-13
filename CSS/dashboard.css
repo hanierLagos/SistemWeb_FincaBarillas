@@ -1,0 +1,102 @@
+
+
+/* ====== ESTILOS PARA ENCABEZADO Y NAVEGACIÓN ====== */
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    color: white;
+    padding: 15px 20px;
+}
+
+.header-nav h1 {
+    margin: 0;
+}
+
+.header-nav nav {
+    display: flex;
+    gap: 15px;
+}
+
+.header-nav nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* Logo de la finca */
+.logo-container img {
+    width: 50px; /* Ajuste del tamaño*/
+    height: auto;
+    margin-right: 20px; /* Separación entre el logo y el nombre */
+}
+
+/* Centrar el nombre de la finca */
+.logo {
+    flex-grow: 1; /* Ocupa el espacio disponible */
+    text-align: left; /* Centra el nombre de la finca */
+}
+
+    /* ====== ESTILOS GENERALES ====== */
+    body {
+        font-family: "San Francisco", sans-serif; 
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        background-color: #1d1d1d;
+        color: white;
+        
+
+    }
+
+  
+
+    .dashboard {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 60px 20px;
+        gap: 30px;
+    }
+
+    .card {
+        width: 200px;
+        height: 200px;
+        background: #2b2b2b;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 12px 25px rgba(79, 248, 0, 0.2);
+        background-color: #0e0e0e;
+    }
+
+    .card i {
+        font-size: 48px;
+        color: #43a047;
+        margin-bottom: 15px;
+    }
+
+    .card span {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    /* ====== PIE DE PÁGINA ====== */
+    footer {
+        background-color: #2d2d2d;
+        color: White;
+        padding: 10px 0;
+        margin-top: 20px;
+        text-align: center;
+    }
