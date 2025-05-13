@@ -784,3 +784,33 @@ th {
 #total-carrito {
     font-weight: bold;
 }
+@media (max-width: 768px) {
+    .header-nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .productos-container,
+    .productos-container2,
+    .opiniones-container,
+    .novedades-container,
+    .about-container,
+    .info-container,
+    .carousel-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .producto2, .novedad, .opinion, .producto {
+        width: 90%;
+    }
+
+    .login-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .login, .login-image {
+        width: 90%;
+    }
+}
