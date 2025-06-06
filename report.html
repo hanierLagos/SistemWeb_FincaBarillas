@@ -11,107 +11,107 @@
   <link rel="stylesheet" href="CSS/styles.css" />
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- html2pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- SheetJS (xlsx para Excel) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  
+  <style>
+    /* Evita que se corte un bloque entre páginas PDF */
+    .page-break-avoid {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+  </style>
 </head>
 <body>
   <header class="header-nav">
-    <!-- Logo de la finca (ubicado a la izquierda) -->
     <div class="logo-container">
         <img src="Images/logoFinca.jpeg" alt="Logo Finca Barillas Yescas">
     </div>
-
-    <!-- Nombre de la finca (en el centro) -->
     <div class="logo">
         <h1>Finca Barillas Yescas</h1>
     </div>
-
-    <!-- Barra de navegación (a la derecha) -->
-    <nav>
+    <nav class="nav-links">
         <a href="admin_dashboard.html">Inicio</a>
         <a href="#">Reportes</a>
     </nav>
   </header>
 
+  <!-- Contenedor con id para exportar -->
+  <div id="reporteContenido" class="page-break-avoid">
 
+    <div class="rpt-dashboard-container">
 
-  <div class="rpt-dashboard-container">
+      <h2 class="rpt-title">Dashboard Reportes</h2>
 
-    <h2 class="rpt-title">Dashboard Reportes</h2>
+      <div class="rpt-cards-row">
+        <div class="rpt-card rpt-ventas">
+          <h3>INGRESOS VENTAS</h3>
+          <p>-7%</p>
+          <p class="rpt-amount" id="totalVentas">$0.00</p>
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <div class="rpt-card rpt-pedidos">
+          <h3>PEDIDOS</h3>
+          <p>-5%</p>
+          <p class="rpt-amount" id="totalPedidos">0</p>
+          <i class="fas fa-box"></i>
+        </div>
+        <div class="rpt-card rpt-clientes">
+          <h3>CLIENTES</h3>
+          <p>+5%</p>
+          <p class="rpt-amount" id="totalClientes">0</p>
+          <i class="fas fa-user-friends"></i>
+        </div>
+        <div class="rpt-card rpt-productos">
+          <h3>PRODUCTOS VENDIDOS</h3>
+          <p>+10%</p>
+          <p class="rpt-amount" id="totalProductos">0</p>
+          <i class="fas fa-tags"></i>
+        </div>
+      </div>
 
-    <!-- Tarjetas centradas -->
-    <div class="rpt-cards-row">
-      <div class="rpt-card rpt-ventas">
-        <h3>INGRESOS VENTAS</h3>
-        <P>-7%</P>
-        <p class="rpt-amount" id="totalVentas">$0.00</p>
-        <i class="fas fa-chart-line"></i>
+      <div class="rpt-main-graph-section">
+        <div class="rpt-monthly-sales-chart">
+          <canvas id="ventasChart"></canvas>
+        </div>
+        <div class="rpt-relevant-data">
+          <h3>Resumen</h3>
+          <p><strong>Ventas:</strong> <span id="relevantVentas">$0.00</span></p>
+          <p><strong>Pedidos:</strong> <span id="relevantPedidos">0</span></p>
+          <p><strong>Clientes Frecuentes:</strong> <span id="relevantClientes">0</span></p>
+          <p><strong>Productos:</strong> <span id="relevantProductos">0</span></p>
+        </div>
       </div>
-      <div class="rpt-card rpt-pedidos">
-        <h3>PEDIDOS</h3>
-        <p>-5%</p>
-        <p class="rpt-amount" id="totalPedidos">0</p>
-        <i class="fas fa-box"></i>
+
+      <div class="rpt-bottom-charts">
+        <div class="rpt-chart rpt-clients-chart">
+          <h3>Top 3 Clientes con mas Compras</h3>
+          <canvas id="graficoClientes"></canvas>
+        </div>
+        <div class="rpt-chart rpt-products-chart">
+          <h3>Productos Más Vendidos</h3>
+          <canvas id="topProductsChart"></canvas>
+        </div>
       </div>
-      <div class="rpt-card rpt-clientes">
-        <h3>CLIENTES</h3>
-        <p class=".rpt-p">+5%</p>
-        <p class="rpt-amount" id="totalClientes">0</p>
-        <i class="fas fa-user-friends"></i>
-      </div>
-      <div class="rpt-card rpt-productos">
-        <h3>PRODUCTOS VENDIDOS</h3>
-        <p >+10%</p>
-        <p class="rpt-amount" id="totalProductos">0</p>
-        <i class="fas fa-tags"></i>
-      </div>
+
     </div>
-
-    <!-- Contenedor gráfico + datos -->
-    <div class="rpt-main-graph-section">
-      <!-- Gráfico de ventas -->
-      <div class="rpt-monthly-sales-chart">
-        <canvas id="ventasChart"></canvas>
-      </div>
-
-      <!-- Datos a la derecha -->
-      <div class="rpt-relevant-data">
-        <h3>Resumen</h3>
-        <p><strong>Ventas:</strong> <span id="relevantVentas">$0.00</span></p>
-        <p><strong>Pedidos:</strong> <span id="relevantPedidos">0</span></p>
-        <p><strong>Clientes Frecuentes:</strong> <span id="relevantClientes">0</span></p>
-        <p><strong>Productos:</strong> <span id="relevantProductos">0</span></p>
-      </div>
-    </div>
-
-    <!-- Gráficos de clientes y productos -->
-    <div class="rpt-bottom-charts">
-      <!-- Clientes frecuentes -->
-      <div class="rpt-chart rpt-clients-chart">
-        <h3>Top 3 Clientes con mas Compras</h3>
-        <canvas id="graficoClientes"></canvas>
-      </div>
-
-      <!-- Productos más vendidos -->
-      <div class="rpt-chart rpt-products-chart">
-        <h3>Productos Más Vendidos</h3>
-        <canvas id="topProductsChart"></canvas>
-      </div>
-    </div>
-
   </div>
+
   <div class="export-section">
     <h2>Exportar Reporte</h2>
     <p>Seleccione el formato en el que desea exportar el reporte:</p>
-    
+
     <div class="export-buttons">
-        <button class="export-btn pdf-btn">
-            <i class="fas fa-file-pdf"></i> Exportar a PDF
-        </button>
-        <button class="export-btn excel-btn">
-            <i class="fas fa-file-excel"></i> Exportar a Excel
-        </button>
+      <button id="exportPDF" class="export-btn pdf-btn">
+        <i class="fas fa-file-pdf"></i> Exportar a PDF
+      </button>
+      <button id="exportExcel" class="export-btn excel-btn">
+        <i class="fas fa-file-excel"></i> Exportar a Excel
+      </button>
     </div>
   </div>
-
 
   <script src="JS/report.js"></script>
 </body>

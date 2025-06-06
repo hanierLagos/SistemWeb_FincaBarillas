@@ -91,3 +91,48 @@ new Chart(document.getElementById("topProductsChart"), {
   }
 });
 
+function mostrarMensaje(texto) {
+  const mensaje = document.getElementById('mensajeExito');
+  mensaje.textContent = texto;
+  mensaje.style.display = 'block';
+  setTimeout(() => {
+    mensaje.style.display = 'none';
+  }, 3000); // se oculta después de 3 segundos
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  // Exportar a PDF
+  const btnPDF = document.querySelector('.pdf-btn');
+  btnPDF.addEventListener('click', () => {
+    const element = document.getElementById('reporteContenido');
+    const opt = {
+      margin: 0.3,
+      filename: 'reporte_dashboard.pdf',
+      image: { type: 'jpeg', quality: 1 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'pt', format: [1200, 1600], orientation: 'portrait' },
+      pagebreak: { mode: 'avoid-all' }
+    };
+    html2pdf().set(opt).from(element).save().then(() => {
+      alert("📄 Reporte PDF exportado correctamente");
+    });
+  });
+
+  // Exportar a Excel
+  const btnExcel = document.querySelector('.excel-btn');
+  btnExcel.addEventListener('click', () => {
+    const data = [
+      ['Concepto', 'Valor'],
+      ['Ventas', document.getElementById('totalVentas').textContent],
+      ['Pedidos', document.getElementById('totalPedidos').textContent],
+      ['Clientes', document.getElementById('totalClientes').textContent],
+      ['Productos Vendidos', document.getElementById('totalProductos').textContent]
+    ];
+
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Reporte');
+    XLSX.writeFile(wb, 'reporte_dashboard.xlsx');
+    alert("📊 Reporte Excel exportado correctamente");
+  });
+});

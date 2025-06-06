@@ -1,65 +1,145 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard - Control de Ventas Finca Barillas</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/dashboard.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TECNODATA Panel</title>
+  <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="CSS/stylesDashboardAdmin.css" />
 </head>
 <body>
-    <header class="header-nav">
-        <!-- Logo de la finca (ubicado a la izquierda) -->
-        <div class="logo-container">
-            <img src="Images/logoFinca.jpeg" alt="Logo Finca Barillas Yescas">
+
+  <!-- Menú Lateral -->
+  <section id="menu-toggle" class="collapsed" aria-label="Menú lateral principal">
+    <a href="#" class="menu-toggle__brand" tabindex="0">
+      <i class="bx bx-cube menu-toggle__icon" aria-hidden="true"></i>
+      <span class="menu-text">FINCA BARILLAS YESCAS</span>
+    </a>
+
+    <ul class="menu-toggle__size_menu" role="menu">
+      <li class="menu-toggle__divisor" aria-label="Operaciones">OPERACIONES</li>
+      <li role="none">
+        <a href="#" class="Activate" role="menuitem" tabindex="0">
+          <i class="bx bx-dots-horizontal-rounded menu-toggle__icon" aria-hidden="true"></i>
+          <span class="menu-text">Facturar</span>
+        </a>
+      </li>
+      <li role="none">
+        <a href="#" class="menu-toggle__link" role="menuitem" tabindex="0">
+          <i class="bx bxs-wallet menu-toggle__icon" aria-hidden="true"></i>
+          <span class="menu-text">Pedidos</span>
+        </a>
+      </li>
+      <li role="none">
+        <a href="#" class="menu-toggle__link" role="menuitem" tabindex="0">
+          <i class="bx bx-package menu-toggle__icon" aria-hidden="true"></i>
+          <span class="menu-text">Producciones</span>
+        </a>
+      </li>
+
+
+      <li class="has-submenu" role="none">
+        <a href="#" class="menu-toggle__link submenu-toggle" aria-haspopup="true" aria-expanded="false" role="menuitem" tabindex="0">
+          <i class="bx bxs-inbox menu-toggle__icon" aria-hidden="true"></i>
+          <span class="menu-text">Inventario</span>
+          <i class="bx bx-chevron-down submenu-arrow" aria-hidden="true"></i>
+        </a>
+        <ul class="menu-toggle__submenu" role="menu" aria-label="Inventario submenu">
+          <li role="none"><a href="inventario_materiaprima.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bx-cube menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Materia Prima</span></a></li>
+          <li role="none"><a href="inventario_productosfabricados.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bxs-package menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Productos Fabricados</span></a></li>
+          <li role="none"><a href="inventario_eliminarproducto.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bx-trash menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Eliminar Producto</span></a></li>
+        </ul>
+      </li>
+
+      <li class="menu-toggle__divisor" aria-label="Catalogos">CATALOGOS</li>
+
+      <li class="has-submenu" role="none">
+        <a href="#" class="menu-toggle__link submenu-toggle" aria-haspopup="true" aria-expanded="false" role="menuitem" tabindex="0">
+          <i class="bx bxs-inbox menu-toggle__icon" aria-hidden="true"></i>
+          <span class="menu-text">Tablas Catalogos</span>
+          <i class="bx bx-chevron-down submenu-arrow" aria-hidden="true"></i>
+        </a>
+        <ul class="menu-toggle__submenu" role="menu" aria-label="Tablas Catalogos submenu">
+          <li role="none"><a href="catalogo_categoria.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bx-tag menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Tipo Producto</span></a></li>
+          <li role="none"><a href="catalogo_proveedores.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bx-user-voice menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Productos</span></a></li>
+          <li role="none"><a href="catalogo_clientes.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bxs-user-account menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Clientes</span></a></li>
+        </ul>
+      </li>
+
+      <li role="none">
+        <a href="report.html" class="menu-toggle__link" role="menuitem" tabindex="0">
+          <i class="bx bxs-chart menu-toggle__icon" aria-hidden="true"></i>
+          <span class="menu-text">Reportes</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Contenido -->
+  <section id="content">
+    <nav>
+      <!-- Botón menú móvil -->
+      <button id="btn-menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-toggle">
+        &#9776; <!-- Icono hamburguesa -->
+      </button>
+
+      <form class="nav__form" role="search" aria-label="Buscar en panel">
+        <div class="nav__form-group">
+          <input id="searchInput" type="search" placeholder="Buscar..." class="nav__form-group__input" aria-label="Buscar"/>
+          <i class="bx bx-search nav__form-group__icon" id="clearSearch" tabindex="0" role="button" aria-label="Limpiar búsqueda"></i>
         </div>
-    
-        <!-- Nombre de la finca (en el centro) -->
-        <div class="logo">
-            <h1>Sistema de Gestión - Finca Barillas Yescas</h1>
+      </form>
+
+      <a href="#" class="nav__link" aria-label="Notificaciones">
+        <i class="bx bx-bell" aria-hidden="true"><span class="nav__link__badge">3</span></i>
+      </a>
+      <a href="#" class="nav__link" aria-label="Mensajes">
+        <i class="bx bx-message" aria-hidden="true"><span class="nav__link__badge">5</span></i>
+      </a>
+      <span class="nav__divisor" aria-hidden="true"></span>
+
+      <div class="nav__profile" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="Perfil de usuario">
+        <img src="https://via.placeholder.com/38" alt="Avatar" class="nav__profile-img" />
+        <span class="nav__profile__name">Usuario</span>
+        <i class="bx bx-chevron-down nav__profile__icon" aria-hidden="true"></i>
+
+        <ul class="nav__profile__submenu" role="menu" aria-label="Opciones de perfil">
+          <li role="none"><a href="#" class="nav__profile-link" role="menuitem" tabindex="-1"><i class="bx bxs-user" aria-hidden="true"></i> Perfil</a></li>
+          <li role="none"><a href="#" class="nav__profile-link" role="menuitem" tabindex="-1"><i class="bx bxs-cog" aria-hidden="true"></i> Configuración</a></li>
+          <li role="none"><a href="#" class="nav__profile-link" role="menuitem" tabindex="-1"><i class="bx bxs-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <h1 class="main__title">Panel de Control</h1>
+      <ul class="main__migas" aria-label="Migas de pan">
+        <li><a href="#">Inicio</a></li>
+        <li class="divider" aria-hidden="true"></li>
+        <li><a href="#" class="active" aria-current="page">Bienvenido</a></li>
+      </ul>
+
+      <div class="main__data">
+        <div class="data__content-data">
+          <h3>Demostración de consumo API</h3>
+          <p>Esta tabla consume <a href="https://api.tecnodata.com/v1/metrics" target="_blank" rel="noopener noreferrer">https://api.tecnodata.com/v1/metrics</a> para obtener datos.</p>
         </div>
-    
-        <!-- Barra de navegación (a la derecha) -->
-        <nav>
-            <a href="#">Inicio</a>
-            <a href="report.html">Reportes</a>
-        </nav>
-      </header>
-
-    
-
-    <main class="dashboard">
-
-        <div class="card">
-            <i class="fas fa-user-friends"></i>
-            <span>Clientes</span>
+        <div class="data__table">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Métricas</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody id="dataTable"></tbody>
+          </table>
         </div>
-
-        <div class="card">
-            <i class="fas fa-seedling"></i>
-            <span>Inventario</span>
-        </div>
-
-        <div class="card">
-            <i class="fas fa-shopping-cart"></i>
-            <span>Ventas</span>
-        </div>
-
-        <div class="card">
-            <i class="fas fa-truck-loading"></i>
-            <span>Pedidos</span>
-        </div>
-
-        <div class="card">
-            <i class="fas fa-cogs"></i>
-            <span>Configuración</span>
-        </div>
-
+      </div>
     </main>
+  </section>
 
-    <footer>
-        <p>© 2025 Sistema de Gestión | Finca Barillas Yescas</p>
-    </footer>
-
+  <script src="JS/scriptDashboardAdmin.js"></script>
 </body>
 </html>

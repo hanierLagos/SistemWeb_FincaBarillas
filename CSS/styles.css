@@ -33,6 +33,9 @@ body {
     color: white;
     font-weight: bold;
 }
+.nav-links a:hover {
+    color: #08c54a;
+}
 
 /* Logo de la finca */
 .logo-container img {
@@ -71,27 +74,34 @@ body {
     text-align: center;
 }
 
+.promociones h2 {
+    margin-bottom: 25px;
+}
+
 .carousel-container {
     display: flex;
-    justify-content: center; /* Centra las imágenes dentro del contenedor */
-    gap: 20px; /* Espacio entre las imágenes */
-    overflow: hidden; /* Oculta las imágenes que salen del contenedor */
-    width: 100%; /* Asegura que el contenedor ocupe el 100% del ancho disponible */
+    justify-content: center;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
 }
 
 .carousel-item {
-    flex: 0 0 auto; /* Asegura que las imágenes no se estiren */
-    width: 300px; /* Ancho de las imágenes */
-    height: 250px; /* Altura moderada */
-    overflow: hidden; /* Recorta la imagen si es necesario */
+    flex: 0 0 auto;
+    width: 300px;
+    height: 250px;
+    object-fit: contain;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .carousel-item img {
-    width: 100%; /* Ajusta la imagen al ancho del contenedor */
-    height: 100%; /* Ajusta la altura de la imagen al contenedor */
-    object-fit: cover; /* Recorta la imagen para que cubra todo el contenedor */
-    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
+
 
 /* ====== SECCIÓN DE PRODUCTOS ====== */
 .productos {
@@ -298,6 +308,7 @@ footer {
     color: white;
     cursor: pointer;
 }
+
 
 
 
@@ -796,9 +807,10 @@ th {
     .novedades-container,
     .about-container,
     .info-container,
+    
     .carousel-container {
-        flex-direction: column;
-        align-items: center;
+        justify-content: flex-start;
+        overflow-x: scroll;
     }
 
     .producto2, .novedad, .opinion, .producto {
