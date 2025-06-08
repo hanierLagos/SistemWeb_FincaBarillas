@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Listado de Productos</title>
+  <!-- Boxicons para íconos -->
+  <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+  <!-- Estilos personalizados -->
+  <link rel="stylesheet" href="CSS/ListProduct.css" />
+</head>
+<body>
+  <div class="title-container">
+    <h2>Listado de Productos</h2>
+    <button id="addProductBtn" class="btn-add">Agregar Producto</button>
+  </div>
+
+  <table id="loadProductList" class="table-product">
+    <thead class="table-product__head">
+      <tr>
+        <th class="table-product__header">ID</th>
+        <th class="table-product__header">Código</th>
+        <th class="table-product__header">Producto</th>
+        <th class="table-product__header">Tipo Producto</th>
+        <th class="table-product__header">Fecha/Siembra</th>
+        <th class="table-product__header">Cant. Disponible</th>
+        <th class="table-product__header">Cant. Mínima</th>
+        <th class="table-product__header">Estado</th>
+        <th class="table-product__header">Editar</th>
+        <th class="table-product__header">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody class="table-product__body"></tbody>
+  </table>
+
+  <!-- Formulario Modal -->
+  <div id="productModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h2 id="modal-title" class="modal__title">Agregar Producto</h2>
+      <form id="productForm" class="form-product">
+        <label for="codigoCultivo" class="form-product__label">Código:</label>
+        <input type="text" id="codigoCultivo" class="form-product__input" required />
+
+        <label for="nombre" class="form-product__label">Nombre de Producto:</label>
+        <input type="text" id="nombre" class="form-product__input" required />
+
+        <label for="tipoProductoDescripcion" class="form-product__label">Tipo Producto:</label>
+        <select id="tipoProductoDescripcion" class="form-product__select" required>
+          <option value="">Seleccione un tipo</option>
+          <!-- Opciones cargadas dinámicamente -->
+        </select>
+
+        <label for="fechaSiembra" class="form-product__label">Fecha/Siembra:</label>
+        <input type="date" id="fechaSiembra" name="fechaSiembra" />
+
+        <label for="cantidadDisponible" class="form-product__label">Cant. Disponible:</label>
+        <input type="number" id="cantidadDisponible" class="form-product__input" min="0" />
+
+        <label for="cantidadMinima" class="form-product__label">Cant. Mínima:</label>
+        <input type="number" id="cantidadMinima" class="form-product__input" min="0" />
+
+        <label for="estado" class="form-product__label">Estado:</label>
+        <select id="estado" class="form-product__select">
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+
+        <button type="submit" class="btn-add">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="JS/loadCrudProduct.js"></script>
+</body>
+</html>

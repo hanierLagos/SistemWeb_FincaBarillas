@@ -6,6 +6,8 @@
   <title>FINCA BARILLAS YESCAS</title>
   <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="CSS/stylesDashboardAdmin.css" />
+  <link rel="stylesheet" href="CSS/ListClient.css">
+
 </head>
 <body>
 
@@ -54,7 +56,12 @@
         <ul class="menu-toggle__submenu" role="menu" aria-label="Tablas Catalogos submenu">
           <li role="none"><a href="catalogo_categoria.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bx-tag menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Tipo Producto</span></a></li>
           <li role="none"><a href="catalogo_fabricas.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bxs-building-house menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Bodegas</span></a></li>
-          <li role="none"><a href="catalogo_clientes.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bxs-user-account menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Clientes</span></a></li>
+          <li role="none">
+            <a href="#" id="link-clientes" class="menu-toggle__link" role="menuitem" tabindex="-1">
+              <i class="bx bxs-user-account menu-toggle__icon" aria-hidden="true"></i>
+              <span class="menu-text">Clientes</span>
+            </a>
+          </li>
         </ul>
       </li>
 
@@ -103,32 +110,8 @@
       </div>
     </nav>
 
-    <main>
-      <h1 class="main__title">Panel de Control</h1>
-      <ul class="main__migas" aria-label="Migas de pan">
-        <li><a href="#">Inicio</a></li>
-        <li class="divider" aria-hidden="true"></li>
-        <li><a href="#" class="active" aria-current="page">Bienvenido</a></li>
-      </ul>
-
-      <div class="main__data">
-        <div class="data__content-data">
-          <h3>Demostración de consumo API</h3>
-          <p>Esta tabla consume <a href="https://api.tecnodata.com/v1/metrics" target="_blank" rel="noopener noreferrer">https://api.tecnodata.com/v1/metrics</a> para obtener datos.</p>
-        </div>
-        <div class="data__table">
-          <table>
-            <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Métricas</th>
-                <th>Valor</th>
-              </tr>
-            </thead>
-            <tbody id="dataTable"></tbody>
-          </table>
-        </div>
-      </div>
+    <main id="main-content" aria-label="Contenido principal">
+      
     </main>
   </section>
 

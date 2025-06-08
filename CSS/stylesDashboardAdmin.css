@@ -248,7 +248,7 @@ nav {
   position: relative;
   text-decoration: none;
   display: flex;
-  align-items: center;
+  align-items: right;
   transition: color 0.3s ease;
   white-space: nowrap;
 }

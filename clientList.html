@@ -1,0 +1,71 @@
+<section>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+    <meta charset="UTF-8">
+    <title>Listado de Clientes</title>
+    <!-- Boxicons para íconos -->
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="CSS/ListClient.css">
+    </head>
+    <body>
+
+    <div class="title-container">
+        <h2>Listado de Clientes</h2>
+        <button id="addClientBtn" class="btn-add">Agregar C     liente</button>
+    </div>
+
+    <table id="loadClientList" class="table-client">
+        <thead class="table-client__head">
+        <tr>
+            <th class="table-client__header">ID</th>
+            <th class="table-client__header">Código</th>
+            <th class="table-client__header">Nombres</th>
+            <th class="table-client__header">Apellidos</th>
+            <th class="table-client__header">Teléfono</th>
+            <th class="table-client__header">Dirección</th>
+            <th class="table-client__header">Estado</th>
+            <th class="table-client__header">Editar</th>
+            <th class="table-client__header">Eliminar</th>
+        </tr>
+        </thead>
+        <tbody class="table-client__body"></tbody>
+    </table>
+
+    <!-- Formulario Modal -->
+    <div id="clienteModal" class="modal">
+        <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2 id="modal-title" class="modal__title">Agregar Cliente</h2>
+        <form id="clienteForm" class="form-client">
+            <label for="codigo" class="form-client__label">Código:</label>
+            <input type="text" id="codigo" class="form-client__input" required>
+
+            <label for="nombres" class="form-client__label">Nombres:</label>
+            <input type="text" id="nombres" class="form-client__input" required>
+
+            <label for="apellidos" class="form-client__label">Apellidos:</label>
+            <input type="text" id="apellidos" class="form-client__input" required>
+
+            <label for="telefono" class="form-client__label">Teléfono:</label>
+            <input type="text" id="telefono" class="form-client__input">
+
+            <label for="direccion" class="form-client__label">Dirección:</label>
+            <input type="text" id="direccion" class="form-client__input">
+
+            <label for="estado" class="form-client__label">Estado:</label>
+            <select id="estado" class="form-client__select">
+            <option value="1">Activo</option>
+            <option value="0">Inactivo</option>
+            </select>
+
+            <button type="submit" id="guardarBtn" class="btn-save">Guardar</button>
+        </form>
+        </div>
+    </div>
+
+    <script src="JS/loadCrudClient.js"></script>
+    </body>
+    </html>
+</section>

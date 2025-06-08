@@ -124,3 +124,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // Ejecutar carga de datos al iniciar
   fetchData();
 });
+
+document.getElementById('link-clientes').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  fetch('clientList.html')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error al cargar la página de clientes');
+      }
+      return response.text();
+    })
+    .then(html => {
+      document.getElementById('main-content').innerHTML = html;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      document.getElementById('main-content').innerHTML = '<p>Error al cargar clientes.</p>';
+    });
+});
