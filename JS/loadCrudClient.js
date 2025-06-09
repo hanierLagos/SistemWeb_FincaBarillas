@@ -86,13 +86,15 @@ document.addEventListener('DOMContentLoaded', function () {
             apellidos: inpApellidos.value.trim(),
             telefono:  inpTelefono.value.trim(),
             direccion: inpDireccion.value.trim(),
-            estado:    selEstado.value
+            estado:    selEstado.value.trim()
         };
 
+        // Validación básica
         const url    = editarId ? `${apiUrl}${editarId}/` : apiUrl;
         const method = editarId ? 'PUT' : 'POST';
 
         fetch(url, {
+            // Usamos PUT si estamos editando, POST si es nuevo
             method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -101,24 +103,29 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!res.ok) throw new Error('Error al guardar');
             modal.style.display = 'none';
             cargarClientes();
+
         })
         .catch(err => {
+            // Manejo de errores
             console.error(err);
             alert('Hubo un problema al guardar el cliente.');
         });
     });
 
-    // Eliminar cliente (marcar estado=0 o eliminar físicamente)
+    // Eliminar cliente (marcar estado=0 )
     function eliminarCliente(id)    {
-        if (!confirm('¿Seguro que deseas eliminar este cliente?')) return;
+        // Confirmación antes de eliminar
+        if (!confirm('¿Seguro que deseas dar de baja a este cliente?')) return;
+        // En lugar de eliminar, actualizamos el estado a 0
         fetch(`${apiUrl}${id}/`, { method: 'DELETE' })
+            
             .then(res => {
-                if (!res.ok) throw new Error('Error al eliminar');
+                if (!res.ok) throw new Error('Error al dar de baja');
                 cargarClientes();
             })
             .catch(err => {
                 console.error(err);
-                alert('No se pudo eliminar el cliente.');
+                alert('No se pudo dar de baja al cliente.');
             });
     }
 

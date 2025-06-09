@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+    <meta charset="UTF-8">
+    <title>Listado de Clientes</title>
+    <!-- Boxicons para íconos -->
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="CSS/ListTypeProduct.css">
+    </head>
+    <body>
+
+    <div class="title-container">
+        <h2>Listado de Tipos de Producto</h2>
+        <button id="addTypeProductBtn" class="btn-add">Agregar Tipo Producto</button>
+    </div>
+
+    <table id="loadTypeProductList" class="table-typeProduct">
+        <thead class="table-typeProduct__head">
+        <tr>
+            <th class="table-typeProduct__header">ID</th>
+            <th class="table-typeProduct__header">Código</th>
+            <th class="table-typeProduct__header">Descripción</th>
+            <th class="table-typeProduct__header">Editar</th>
+            <th class="table-typeProduct__header">Eliminar</th>
+        </tr>
+        </thead>
+        <tbody class="table-typeProduct__body"></tbody>
+    </table>
+
+    <!-- Formulario Modal -->
+    <div id="typeProductModal" class="modal">
+        <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2 id="modal-title" class="modal__title">Agregar Tipo Producto</h2>
+        <form id="typeProductForm" class="form-typeProduct">
+            <label for="codigo" class="form-typeProduct__label">Código:</label>
+            <input type="text" id="codigo" class="form-typeProduct__input" required>
+
+            <label for="description" class="form-typeProduct__label">Descripción:</label>
+            <input type="text" id="description" class="form-typeProduct__input" required>
+
+            <button type="submit" id="guardarBtn" class="btn-save">Guardar</button>
+        </form>
+        </div>
+    </div>
+
+    <script src="JS/loadCrudTypeProdcut.js"></script>
+    </body>
+    </html>

@@ -185,18 +185,32 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function eliminarProducto(id) {
+    if (!id) {
+      alert('ID inválido para eliminar');
+      return;
+    }
+
     if (!confirm('¿Está seguro de eliminar este producto?')) return;
 
-    fetch(`${apiUrl}${id}/`, { method: 'DELETE' })
+    fetch(`${apiUrl}${id}/`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
       .then(res => {
-        if (res.status === 204) {
+        if (res.status === 204 || res.ok) {
           cargarProductos();
         } else {
-          throw new Error('Error al eliminar producto');
+          return res.text().then(text => { throw new Error(text || 'No se pudo eliminar'); });
         }
       })
-      .catch(err => alert('Error al eliminar producto: ' + err));
+      .catch(err => {
+        console.error('Error al eliminar producto:', err);
+        alert('Error al eliminar producto: ' + err.message);
+      });
   }
+
 
   window.addEventListener('click', (e) => {
     if (e.target === modal) {
