@@ -41,12 +41,16 @@ body {
 #menu-toggle.collapsed .menu-text {
   display: none;
   font-size: 14px;
+  color : #1e2a38;
+}
+#menu-togle .menu-text:hover{
+  color :#1e2a38;
 }
 
 #menu-toggle:hover .menu-text {
   display: inline;
   font-size: 14x;
-
+  color: #ffffff;
 }
 
 .menu-toggle__brand {
@@ -128,7 +132,9 @@ body {
 .menu-toggle__size_menu > li > a.Activate {
   background-color: #388e3c;
   color: #e8f0fa;
+  
 }
+
 
 .menu-toggle__submenu {
   list-style: none;
@@ -154,14 +160,14 @@ body {
   color: #388e3c;
 }
 
-.menu-toggle__submenu li a .menu-toggle__icon {
+.menu-toggle_submenu li a .menu-toggle_icon {
   font-size: 1.1rem;
   min-width: 20px;
   text-align: center;
 }
 
 /* Mostrar submenu cuando li tenga clase open */
-.menu-toggle__size_menu li.open > .menu-toggle__submenu {
+.menu-toggle_size_menu li.open > .menu-toggle_submenu {
   display: flex;
   flex-direction: column;
 }
@@ -211,7 +217,7 @@ nav {
   width: 100%;
 }
 
-.nav__form-group__input {
+.nav_form-group_input {
   width: 100%;
   padding: 10px 40px 10px 15px;
   border-radius: 20px;
@@ -222,16 +228,16 @@ nav {
   min-width: 0;
 }
 
-.nav__form-group__input::placeholder {
+.nav_form-group_input::placeholder {
   color: #9aa7b3;
 }
 
-.nav__form-group__input:focus {
+.nav_form-group_input:focus {
   outline: none;
   border-color: #4fc3f7;
 }
 
-.nav__form-group__icon {
+.nav_form-group_icon {
   position: absolute;
   right: 15px;
   top: 50%;
@@ -257,7 +263,7 @@ nav {
   color: #388e3c;
 }
 
-.nav__link__badge {
+.nav_link_badge {
   position: absolute;
   top: -5px;
   right: -10px;
@@ -292,25 +298,25 @@ nav {
   margin-right: 10px;
 }
 
-.nav__profile__name {
+.nav_profile_name {
   font-weight: 600;
   color: #2c3e50;
   margin-right: 5px;
   white-space: nowrap;
 }
 
-.nav__profile__icon {
+.nav_profile_icon {
   font-size: 1.2rem;
   color: #647d95;
   transition: color 0.3s ease;
 }
 
-.nav__profile:hover .nav__profile__icon {
+.nav_profile:hover .navprofile_icon {
   color: #e8f0fa;
 }
 
 /* Menu desplegable perfil */
-.nav__profile__submenu {
+.nav_profile_submenu {
   position: absolute;
   top: 50px;
   right: 0;
@@ -324,7 +330,7 @@ nav {
   z-index: 100;
 }
 
-.nav__profile:hover .nav__profile__submenu {
+.nav_profile:hover .navprofile_submenu {
   display: block;
 }
 
@@ -442,30 +448,28 @@ main {
   background-color: #f7fbfe;
 }
 
-/* ===== BOTÓN MENU HAMBURGUESA ===== */
+/* Mostrar solo en móviles */
 #btn-menu-toggle {
-  display: none; /* oculto en desktop */
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1200;
+  font-size: 2rem;
   background: none;
   border: none;
-  font-size: 2rem;
   color: #4fc3f7;
   cursor: pointer;
   padding: 5px;
-  margin-left: 15px;
-  transition: color 0.3s ease;
 }
 
-#btn-menu-toggle:hover {
-  color: #1e2a38;
-}
-
-/* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
+  #btn-menu-toggle {
+    display: block;
+  }
+
   #menu-toggle {
-    width: 200px;
-    height: 100vh;
-    left: -200px;
-    top: 0;
+    left: -250px;
     transition: left 0.3s ease;
   }
 
@@ -473,10 +477,104 @@ main {
     left: 0;
   }
 
-  #menu-toggle:hover {
-    width: 200px; /* desactivar hover expandido para tablets */
+  #content {
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
   }
 
+  #content.shifted {
+    margin-left: 250px;
+  }
+
+  .menu-text {
+    display: none;
+  }
+
+  #menu-toggle.open .menu-text {
+    display: inline;
+  }
+}
+
+
+#btn-menu-toggle:hover {
+  color: #1e2a38;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  /* Menú lateral */
+  #menu-toggle {
+    width: 200px;
+    height: 100vh;
+    left: -200px; /* oculto al inicio */
+    top: 0;
+    transition: left 0.3s ease;
+    position: fixed;
+    z-index: 1100;
+    overflow-y: auto;
+    /* desactivar hover expandido para tablets */
+  }
+
+  #menu-toggle.open {
+    left: 0; /* menú visible */
+  }
+
+  #menu-toggle:hover {
+    width: 200px; /* evitar que cambie tamaño al hacer hover */
+  }
+
+  /* Contenido principal */
+  #content {
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+  }
+
+  #content.shifted {
+    margin-left: 200px; /* desplazamiento cuando menú está abierto */
+  }
+
+  /* Texto menú solo visible si menú abierto */
+  .menu-text {
+    display: none;
+  }
+
+  #menu-toggle.open .menu-text {
+    display: inline;
+  }
+
+  /* Navbar ajustes */
+  nav {
+    padding: 15px 20px;
+  }
+
+  .nav__form {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Botón hamburguesa oculto en tablets */
+  #btn-menu-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Menú lateral */
+  #menu-toggle {
+    width: 200px;
+    left: -200px;
+    position: fixed;
+    top: 0;
+    z-index: 1100;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+  }
+
+  #menu-toggle.open {
+    left: 0;
+  }
+
+  /* Contenido principal */
   #content {
     margin-left: 0;
     transition: margin-left 0.3s ease;
@@ -486,7 +584,7 @@ main {
     margin-left: 200px;
   }
 
-  /* Mostrar texto menú sólo cuando esté abierto */
+  /* Texto menú solo visible cuando menú abierto */
   .menu-text {
     display: none;
   }
@@ -495,57 +593,33 @@ main {
     display: inline;
   }
 
-  /* Cambios nav */
-  nav {
-    padding: 15px 20px;
-  }
-
-  .nav__form {
-    max-width: 100%;
-    margin-bottom: 10px;
-  }
-}
-
-@media (max-width: 768px) {
-  #menu-toggle {
-    width: 200px;
-    left: -200px;
-    position: fixed;
-    top: 0;
-    z-index: 1100;
-    box-shadow: 2px 0 8px rgba(0,0,0,0.15);
-  }
-
-  #btn-menu-toggle {
-    display: block;
-  }
-
-  #menu-toggle.open {
-    left: 0;
-  }
-
-  #content {
-    margin-left: 0;
-  }
-
-  #content.shifted {
-    margin-left: 200px;
-  }
-
-  /* Ocultar texto cuando está cerrado */
-  .menu-text {
-    display: none;
-  }
-
-  #menu-toggle.open .menu-text {
-    display: inline;
-  }
-
+  /* Ajustes menú */
   .menu-toggle__brand {
     justify-content: center;
   }
 
   .menu-toggle__icon {
     margin-right: 0;
+  }
+
+  /* Mostrar botón hamburguesa */
+  #btn-menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #4fc3f7;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 15px;
+    transition: color 0.3s ease;
+    z-index: 1200; /* encima del menú */
+    position: fixed;
+    top: 15px;
+    left: 15px;
+  }
+
+  #btn-menu-toggle:hover {
+    color: #1e2a38;
   }
 }
