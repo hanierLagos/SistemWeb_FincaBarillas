@@ -166,3 +166,93 @@ body {
 .btn-save:hover {
   background-color: #2c6e2f; /* verde-claro */
 }
+
+/* ============================== */
+/* === RESPONSIVE CLIENTLIST ====*/
+/* ============================== */
+
+@media (max-width: 1024px) {
+  body {
+    padding: 10px;
+  }
+
+  .title-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .title-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn-add {
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .table-client {
+    display: block;
+    overflow-x: auto;
+    font-size: 0.95rem;
+  }
+
+  .table-client__header,
+  .table-client__body td {
+    padding: 8px;
+  }
+
+  .table-client__body td button {
+    font-size: 1.4rem;
+    padding: 6px;
+  }
+
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .form-client__input,
+  .form-client__select {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  .btn-save {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .title-container h2 {
+    font-size: 1.3rem;
+  }
+
+  .btn-add {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  .table-client__header {
+    font-size: 0.85rem;
+  }
+
+  .table-client__body td {
+    font-size: 0.85rem;
+  }
+
+  .form-client__label {
+    font-size: 0.9rem;
+  }
+
+  .form-client__input,
+  .form-client__select {
+    font-size: 0.9rem;
+  }
+
+  .btn-save {
+    font-size: 0.95rem;
+  }
+}
