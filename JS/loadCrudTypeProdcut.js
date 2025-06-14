@@ -86,7 +86,7 @@ function init() {
         };
 
         // Determinamos si es una creación (POST) o una actualización (PUT)
-        const url    = editarId ? `${apiUrl}${editarId}/` : apiUrl;
+        const url    = editarId ? ${apiUrl}${editarId}/ : apiUrl;
         const method = editarId ? 'PUT' : 'POST';
 
         // Enviamos los datos a la API

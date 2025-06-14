@@ -1,7 +1,11 @@
 async function fetchVentasPorMes() {
   try {
     const res = await fetch('http://127.0.0.1:8000/api/ventas/reporte-ventas-mensual/');
+<<<<<<< HEAD
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
+=======
+    if (!res.ok) throw new Error(HTTP ${res.status});
+>>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
     const json = await res.json();
     console.log('Ventas por mes:', json.reporte); // <- LOG
     return json.reporte || [];
@@ -16,7 +20,11 @@ async function fetchVentasPorMes() {
 async function fetchTopClientes() {
   try {
     const res = await fetch('http://127.0.0.1:8000/api/ventas/reporte-top-clientes/');
+<<<<<<< HEAD
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
+=======
+    if (!res.ok) throw new Error(HTTP ${res.status});
+>>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
     const json = await res.json();
     console.log('Top clientes:', json.reporte); // <- LOG
     return json.reporte || [];
@@ -53,14 +61,22 @@ async function initCharts() {
       plugins: {
         legend: { display: false },
         tooltip: { callbacks: {
+<<<<<<< HEAD
           label: ctx => `$${ctx.parsed.y.toLocaleString()}`
+=======
+          label: ctx => $${ctx.parsed.y.toLocaleString()}
+>>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
         }}
       },
       scales: {
         y: {
           beginAtZero: true,
           ticks: {
+<<<<<<< HEAD
             callback: value => `$${value.toLocaleString()}`
+=======
+            callback: value => $${value.toLocaleString()}
+>>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
           }
         }
       }
@@ -108,7 +124,11 @@ async function initCharts() {
               const val = ctx.parsed;
               const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
               const pct = ((val / total) * 100).toFixed(1);
+<<<<<<< HEAD
               return `${ctx.label}: ${val} venta(s) (${pct}%)`;
+=======
+              return ${ctx.label}: ${val} venta(s) (${pct}%);
+>>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
             }
           }
         }
@@ -125,7 +145,11 @@ async function fetchVentasPorMetodoPago(metodo) {
     url.searchParams.append('metodo', metodo);
 
     const res = await fetch(url);
+<<<<<<< HEAD
     if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
+=======
+    if (!res.ok) throw new Error(Error HTTP ${res.status});
+>>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
     const data = await res.json();
     return data.resultado || [];
   } catch (error) {
@@ -139,7 +163,11 @@ function mostrarVentasTabla(ventas) {
   tbody.innerHTML = '';
 
   if (!ventas.length) {
+<<<<<<< HEAD
     tbody.innerHTML = `<tr><td colspan="5" class="text-center">No se encontraron ventas.</td></tr>`;
+=======
+    tbody.innerHTML = <tr><td colspan="5" class="text-center">No se encontraron ventas.</td></tr>;
+>>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
     return;
   }
 
@@ -260,5 +288,9 @@ async function init() {
 
 
 // Esperar que el DOM esté listo para iniciar
+<<<<<<< HEAD
 document.addEventListener('DOMContentLoaded', init);
 
+=======
+document.addEventListener('DOMContentLoaded', init);
+>>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78

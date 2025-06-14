@@ -24,7 +24,7 @@ function init () {
       .then(res => {
         const contentType = res.headers.get('content-type');
         if (!res.ok) {
-          return res.text().then(text => { throw new Error(`Error ${res.status}: ${text}`); });
+          return res.text().then(text => { throw new Error(Error ${res.status}: ${text}); });
         }
         if (contentType && contentType.includes('application/json')) {
           return res.json();
@@ -74,7 +74,7 @@ function init () {
       .then(res => {
         const contentType = res.headers.get('content-type');
         if (!res.ok) {
-          return res.text().then(text => { throw new Error(`Error ${res.status}: ${text}`); });
+          return res.text().then(text => { throw new Error(Error ${res.status}: ${text}); });
         }
         if (contentType && contentType.includes('application/json')) {
           return res.json();
@@ -109,7 +109,7 @@ function init () {
       const yyyy = fecha.getFullYear();
       const mm = String(fecha.getMonth() + 1).padStart(2, '0');
       const dd = String(fecha.getDate()).padStart(2, '0');
-      inpFechaSiembra.value = `${yyyy}-${mm}-${dd}`;
+      inpFechaSiembra.value = ${yyyy}-${mm}-${dd};
     } else {
       inpFechaSiembra.value = '';
     }
@@ -158,7 +158,7 @@ function init () {
     };
 
 
-    const url = editarId ? `${apiUrl}${editarId}/` : apiUrl;
+    const url = editarId ? ${apiUrl}${editarId}/ : apiUrl;
     const method = editarId ? 'PUT' : 'POST';
 
     fetch(url, {
@@ -192,7 +192,7 @@ function init () {
 
     if (!confirm('¿Está seguro de eliminar este producto?')) return;
 
-    fetch(`${apiUrl}${id}/`, {
+    fetch(${apiUrl}${id}/, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -225,5 +225,9 @@ function init () {
   cargarProductos();
 };
 
+<<<<<<< HEAD
 window.init = init; // Exponer la función init para que pueda ser llamada desde otros scripts
   
+=======
+window.init = init; // Exponer la función init para que pueda ser llamada desde otros scripts
+>>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
