@@ -86,7 +86,7 @@ function init() {
         };
 
         // Determinamos si es una creación (POST) o una actualización (PUT)
-        const url    = editarId ? `${apiUrl}${editarId}/` : apiUrl;
+        const url    = editarId ? ${apiUrl}${editarId}/ : apiUrl;
         const method = editarId ? 'PUT' : 'POST';
 
         // Enviamos los datos a la API
@@ -116,4 +116,5 @@ function init() {
     // Cargamos los datos al inicio cuando se abre la página
     cargarTipoProductos();
 };
-window.init=init
+
+window.init = init; // Exponemos la función init para que pueda ser llamada desde el HTML
