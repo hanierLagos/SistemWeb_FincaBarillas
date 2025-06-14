@@ -1,5 +1,4 @@
-// Espera que el DOM esté completamente cargado antes de ejecutar el script
-document.addEventListener('DOMContentLoaded', function () {
+function init() {
 
     // Referencias a elementos del DOM
     const tbody       = document.querySelector('#loadTypeProductList tbody');  // Cuerpo de la tabla
@@ -116,4 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Cargamos los datos al inicio cuando se abre la página
     cargarTipoProductos();
-});
+};
+
+window.init = init; // Exponemos la función init para que pueda ser llamada desde el HTML

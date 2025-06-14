@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+function init () {
   const tbody = document.querySelector('#loadProductList tbody');
   const addBtn = document.getElementById('addProductBtn');
   const modal = document.getElementById('productModal');
@@ -223,5 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Llamadas iniciales
   cargarTiposProducto();
   cargarProductos();
-});
+};
+
+window.init = init; // Exponer la función init para que pueda ser llamada desde otros scripts
   

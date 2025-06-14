@@ -448,30 +448,28 @@ main {
   background-color: #f7fbfe;
 }
 
-/* ===== BOTÓN MENU HAMBURGUESA ===== */
+/* Mostrar solo en móviles */
 #btn-menu-toggle {
-  display: none; /* oculto en desktop */
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1200;
+  font-size: 2rem;
   background: none;
   border: none;
-  font-size: 2rem;
   color: #4fc3f7;
   cursor: pointer;
   padding: 5px;
-  margin-left: 15px;
-  transition: color 0.3s ease;
 }
 
-#btn-menu-toggle:hover {
-  color: #1e2a38;
-}
-
-/* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
+  #btn-menu-toggle {
+    display: block;
+  }
+
   #menu-toggle {
-    width: 200px;
-    height: 100vh;
-    left: -200px;
-    top: 0;
+    left: -250px;
     transition: left 0.3s ease;
   }
 
@@ -479,10 +477,104 @@ main {
     left: 0;
   }
 
-  #menu-toggle:hover {
-    width: 200px; /* desactivar hover expandido para tablets */
+  #content {
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
   }
 
+  #content.shifted {
+    margin-left: 250px;
+  }
+
+  .menu-text {
+    display: none;
+  }
+
+  #menu-toggle.open .menu-text {
+    display: inline;
+  }
+}
+
+
+#btn-menu-toggle:hover {
+  color: #1e2a38;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  /* Menú lateral */
+  #menu-toggle {
+    width: 200px;
+    height: 100vh;
+    left: -200px; /* oculto al inicio */
+    top: 0;
+    transition: left 0.3s ease;
+    position: fixed;
+    z-index: 1100;
+    overflow-y: auto;
+    /* desactivar hover expandido para tablets */
+  }
+
+  #menu-toggle.open {
+    left: 0; /* menú visible */
+  }
+
+  #menu-toggle:hover {
+    width: 200px; /* evitar que cambie tamaño al hacer hover */
+  }
+
+  /* Contenido principal */
+  #content {
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+  }
+
+  #content.shifted {
+    margin-left: 200px; /* desplazamiento cuando menú está abierto */
+  }
+
+  /* Texto menú solo visible si menú abierto */
+  .menu-text {
+    display: none;
+  }
+
+  #menu-toggle.open .menu-text {
+    display: inline;
+  }
+
+  /* Navbar ajustes */
+  nav {
+    padding: 15px 20px;
+  }
+
+  .nav__form {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Botón hamburguesa oculto en tablets */
+  #btn-menu-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Menú lateral */
+  #menu-toggle {
+    width: 200px;
+    left: -200px;
+    position: fixed;
+    top: 0;
+    z-index: 1100;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+  }
+
+  #menu-toggle.open {
+    left: 0;
+  }
+
+  /* Contenido principal */
   #content {
     margin-left: 0;
     transition: margin-left 0.3s ease;
@@ -492,7 +584,7 @@ main {
     margin-left: 200px;
   }
 
-  /* Mostrar texto menú sólo cuando esté abierto */
+  /* Texto menú solo visible cuando menú abierto */
   .menu-text {
     display: none;
   }
@@ -501,57 +593,33 @@ main {
     display: inline;
   }
 
-  /* Cambios nav */
-  nav {
-    padding: 15px 20px;
-  }
-
-  .nav__form {
-    max-width: 100%;
-    margin-bottom: 10px;
-  }
-}
-
-@media (max-width: 768px) {
-  #menu-toggle {
-    width: 200px;
-    left: -200px;
-    position: fixed;
-    top: 0;
-    z-index: 1100;
-    box-shadow: 2px 0 8px rgba(0,0,0,0.15);
-  }
-
-  #btn-menu-toggle {
-    display: block;
-  }
-
-  #menu-toggle.open {
-    left: 0;
-  }
-
-  #content {
-    margin-left: 0;
-  }
-
-  #content.shifted {
-    margin-left: 200px;
-  }
-
-  /* Ocultar texto cuando está cerrado */
-  .menu-text {
-    display: none;
-  }
-
-  #menu-toggle.open .menu-text {
-    display: inline;
-  }
-
+  /* Ajustes menú */
   .menu-toggle__brand {
     justify-content: center;
   }
 
   .menu-toggle__icon {
     margin-right: 0;
+  }
+
+  /* Mostrar botón hamburguesa */
+  #btn-menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #4fc3f7;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 15px;
+    transition: color 0.3s ease;
+    z-index: 1200; /* encima del menú */
+    position: fixed;
+    top: 15px;
+    left: 15px;
+  }
+
+  #btn-menu-toggle:hover {
+    color: #1e2a38;
   }
 }

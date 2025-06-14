@@ -7,114 +7,106 @@
   <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="CSS/stylesDashboardAdmin.css" />
   <link rel="stylesheet" href="CSS/ListClient.css">
-
 </head>
 <body>
+  
 
   <!-- Menú Lateral -->
   <section id="menu-toggle" class="collapsed" aria-label="Menú lateral principal">
     <a href="#" class="menu-toggle__brand" tabindex="0">
-      <i class="bx bxs-smile menu-toggle__icon" aria-hidden="true"></i>
+      <i class="bx bxs-smile menu-toggle__icon"></i>
       <span class="menu-text">FINCA BARILLAS YESCAS</span>
     </a>
 
     <ul class="menu-toggle__size_menu" role="menu">
-      <li class="menu-toggle__divisor" aria-label="Operaciones">OPERACIONES</li>
-      <li role="none">
-        <a href="#" class="Activate" role="menuitem" tabindex="0">
-          <i class="bx bx-dots-horizontal-rounded menu-toggle__icon" aria-hidden="true"></i>
+      <li class="menu-toggle__divisor">OPERACIONES</li>
+      <li>
+        <a href="#factura" data-page="factura" class="menu-link">
+          <i class="bx bx-dots-horizontal-rounded menu-toggle__icon"></i>
           <span class="menu-text">Facturar</span>
         </a>
       </li>
-      <li role="none">
-        <a href="#" class="menu-toggle__link" role="menuitem" tabindex="0">
-          <i class="bx bxs-wallet menu-toggle__icon" aria-hidden="true"></i>
+      <li>
+        <a href="#producciones" data-page="producciones" class="menu-link">
+          <i class="bx bxs-wallet menu-toggle__icon"></i>
           <span class="menu-text">Producciones</span>
         </a>
       </li>
-
-      <li class="has-submenu" role="none">
-        <a href="#" class="menu-toggle__link submenu-toggle" aria-haspopup="true" aria-expanded="false" role="menuitem" tabindex="0">
-          <i class="bx bxs-inbox menu-toggle__icon" aria-hidden="true"></i>
+      <li class="has-submenu">
+        <a href="#" class="submenu-toggle">
+          <i class="bx bxs-inbox menu-toggle__icon"></i>
           <span class="menu-text">Inventario</span>
-          <i class="bx bx-chevron-down submenu-arrow" aria-hidden="true"></i>
+          <i class="bx bx-chevron-down submenu-arrow"></i>
         </a>
-        <ul class="menu-toggle__submenu" role="menu" aria-label="Inventario submenu">
-          <li role="none"><a href="inventario_materiaprima.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bx-cube menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Productos</span></a></li>
-          <li role="none"><a href="inventario_productosfabricados.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bxs-package menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Productos Fabricados</span></a></li>
+        <ul class="menu-toggle__submenu">
+          <li><a href="productList.html" data-page="productList.html" class="menu-link"><i class="bx bx-cube menu-toggle__icon"></i>Productos</a></li>
+          <li><a href="productList.html" data-page="inventario_productosfabricados" class="menu-link"><i class="bx bxs-package menu-toggle__icon"></i>Productos Fabricados</a></li>
         </ul>
       </li>
 
-      <li class="menu-toggle__divisor" aria-label="Catalogos">CATALOGOS</li>
-
-      <li class="has-submenu" role="none">
-        <a href="#" class="menu-toggle__link submenu-toggle" aria-haspopup="true" aria-expanded="false" role="menuitem" tabindex="0">
-          <i class="bx bxs-inbox menu-toggle__icon" aria-hidden="true"></i>
-          <span class="menu-text">Tablas Catalogos</span>
-          <i class="bx bx-chevron-down submenu-arrow" aria-hidden="true"></i>
+      <li class="menu-toggle__divisor">CATÁLOGOS</li>
+      <li class="has-submenu">
+        <a href="#" class="submenu-toggle">
+          <i class="bx bxs-inbox menu-toggle__icon"></i>
+          <span class="menu-text">Tablas Catálogos</span>
+          <i class="bx bx-chevron-down submenu-arrow"></i>
         </a>
-        <ul class="menu-toggle__submenu" role="menu" aria-label="Tablas Catalogos submenu">
-          <li role="none"><a href="catalogo_categoria.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bx-tag menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Tipo Producto</span></a></li>
-          <li role="none"><a href="catalogo_fabricas.html" class="menu-toggle__link" role="menuitem" tabindex="-1"><i class="bx bxs-building-house menu-toggle__icon" aria-hidden="true"></i><span class="menu-text">Bodegas</span></a></li>
-          <li role="none">
-            <a href="#" id="link-clientes" class="menu-toggle__link" role="menuitem" tabindex="-1">
-              <i class="bx bxs-user-account menu-toggle__icon" aria-hidden="true"></i>
-              <span class="menu-text">Clientes</span>
-            </a>
-          </li>
+        <ul class="menu-toggle__submenu">
+          <li><a href="#catalogo_categoria" data-page="typeProductList.html" class="menu-link"><i class="bx bx-tag menu-toggle__icon"></i>Tipo Producto</a></li>
+          <li><a href="#catalogo_fabricas" data-page="catalogo_fabricas" class="menu-link"><i class="bx bxs-building-house menu-toggle__icon"></i>Bodegas</a></li>
+          <li><a href="clientList.html" data-page="clientList.html" class="menu-link"><i class="bx bxs-user-account menu-toggle__icon"></i>Clientes</a></li>
         </ul>
       </li>
 
-      <li role="none">
-        <a href="reportes.html" class="menu-toggle__link" role="menuitem" tabindex="0">
-          <i class="bx bxs-chart menu-toggle__icon" aria-hidden="true"></i>
+      <li>
+        <a href="report.html" data-page="report.html" class="menu-link">
+          <i class="bx bxs-chart menu-toggle__icon"></i>
           <span class="menu-text">Reportes</span>
         </a>
       </li>
     </ul>
   </section>
 
-  <!-- Contenido -->
+  <!-- Contenido Principal -->
   <section id="content">
     <nav>
-      <!-- Botón menú móvil -->
-      <button id="btn-menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-toggle">
-        &#9776; <!-- Icono hamburguesa -->
-      </button>
+      <button id="btn-menu-toggle">&#9776;</button>
 
-      <form class="nav__form" role="search" aria-label="Buscar en panel">
+      <form class="nav__form" role="search">
         <div class="nav__form-group">
-          <input id="searchInput" type="search" placeholder="Buscar..." class="nav__form-group__input" aria-label="Buscar"/>
-          <i class="bx bx-search nav__form-group__icon" id="clearSearch" tabindex="0" role="button" aria-label="Limpiar búsqueda"></i>
+          <input id="searchInput" type="search" placeholder="Buscar..." class="nav__form-group__input" />
+          <i class="bx bx-search nav__form-group__icon" id="clearSearch" tabindex="0"></i>
         </div>
       </form>
 
-      <a href="#" class="nav__link" aria-label="Notificaciones">
-        <i class="bx bx-bell" aria-hidden="true"><span class="nav__link__badge">3</span></i>
-      </a>
-      <a href="#" class="nav__link" aria-label="Mensajes">
-        <i class="bx bx-message" aria-hidden="true"><span class="nav__link__badge">5</span></i>
-      </a>
-      <span class="nav__divisor" aria-hidden="true"></span>
+      <a href="#" class="nav__link"><i class="bx bx-bell"><span class="nav__link__badge">3</span></i></a>
+      <a href="#" class="nav__link"><i class="bx bx-message"><span class="nav__link__badge">5</span></i></a>
 
-      <div class="nav__profile" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="Perfil de usuario">
+      <span class="nav__divisor"></span>
+
+      <div class="nav__profile" tabindex="0">
         <img src="https://via.placeholder.com/38" alt="Avatar" class="nav__profile-img" />
         <span class="nav__profile__name">Usuario</span>
-        <i class="bx bx-chevron-down nav__profile__icon" aria-hidden="true"></i>
-
-        <ul class="nav__profile__submenu" role="menu" aria-label="Opciones de perfil">
-          <li role="none"><a href="#" class="nav__profile-link" role="menuitem" tabindex="-1"><i class="bx bxs-user" aria-hidden="true"></i> Perfil</a></li>
-          <li role="none"><a href="#" class="nav__profile-link" role="menuitem" tabindex="-1"><i class="bx bxs-cog" aria-hidden="true"></i> Configuración</a></li>
-          <li role="none"><a href="#" class="nav__profile-link" role="menuitem" tabindex="-1"><i class="bx bxs-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
+        <i class="bx bx-chevron-down nav__profile__icon"></i>
+        <ul class="nav__profile__submenu">
+          <li><a href="#"><i class="bx bxs-user"></i> Perfil</a></li>
+          <li><a href="#"><i class="bx bxs-cog"></i> Configuración</a></li>
+          <li><a href="#"><i class="bx bxs-log-out"></i> Cerrar Sesión</a></li>
         </ul>
       </div>
     </nav>
 
-    <main id="main-content" aria-label="Contenido principal">
-      
+    <main id="main-content">
+      <h2>Bienvenido al Panel de la Finca Barillas Yescas</h2>
     </main>
   </section>
 
+  <!-- Script de carga dinámica -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
   <script src="JS/scriptDasboardAmin.js"></script>
+  <script src="JS/loadCrudProduct.js"></script>
+  <script src="JS/loadCrudTypeProduct.js"></script>
+
 </body>
 </html>

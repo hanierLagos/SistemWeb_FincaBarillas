@@ -1,0 +1,168 @@
+/* report.css */
+
+/* Globales */
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+  margin: 0;
+  padding: 1rem;
+  background-color: #f1f3f5;
+  color: #212529;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+header h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0d6efd;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Contenedor de gráficos */
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.chart-box {
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 320px;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.chart-box:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.chart-box h2 {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+/* Filtros */
+.filter-section {
+  background: #fff;
+  padding: 1rem;
+  margin: auto;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+  margin-bottom: 2rem;
+}
+
+.filter-section h2 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+#selectMetodoPago {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+  min-width: 200px;
+  flex-grow: 1;
+}
+
+#selectMetodoPago:focus {
+  border-color: #0d6efd;
+  outline: none;
+}
+
+#btnBuscarMetodo {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  background-color: #0d6efd;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+#btnBuscarMetodo:hover {
+  background-color: #0848c5;
+}
+
+/* Tablas */
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  min-width: 600px;
+}
+
+thead {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+th, td {
+  padding: 0.6rem;
+  border: 1px solid #dee2e6;
+}
+
+tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.text-center {
+  text-align: center;
+  color: #6c757d;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .charts-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chart-box, .filter-section {
+    width: 100%;
+  }
+
+  .filter-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #btnBuscarMetodo {
+    width: 100%;
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
+}
