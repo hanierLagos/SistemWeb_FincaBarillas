@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+function init() {
     const tbody       = document.querySelector('#loadClientList tbody');
     const addBtn      = document.getElementById('addClientBtn');
     const modal       = document.getElementById('clienteModal');
@@ -33,23 +33,26 @@ document.addEventListener('DOMContentLoaded', function () {
                     tr.insertCell(5).textContent = item.direccion;
                     tr.insertCell(6).textContent = item.estado;
 
-                     // Editar
-                        const tdEdit = tr.insertCell(7);
-                        const btnEdit = document.createElement('button');
-                        btnEdit.classList.add('btn-edit');
-                        // Aquí cargamos el icono con <i>
-                        btnEdit.innerHTML = '<i class="bx bx-edit"></i>';
-                        btnEdit.addEventListener('click', () => abrirModal(item));
-                        tdEdit.appendChild(btnEdit);
+                    // Editar
+                    const tdEdit = tr.insertCell(7);
+                    const btnEdit = document.createElement('button');
+                    btnEdit.classList.add('btn-edit');
+                    btnEdit.innerHTML = '<i class="bx bx-edit"></i>';
+                    btnEdit.addEventListener('click', () => abrirModal(item));
+                    tdEdit.appendChild(btnEdit);
 
-                        // Eliminar
-                        const tdDel = tr.insertCell(8);
-                        const btnDel = document.createElement('button');
-                        btnDel.classList.add('btn-delete');
-                        btnDel.innerHTML = '<i class="bx bx-trash"></i>';
-                        btnDel.addEventListener('click', () => eliminarCliente(item.id));
-                        tdDel.appendChild(btnDel);
+                    // Eliminar
+                    const tdDel = tr.insertCell(8);
+                    const btnDel = document.createElement('button');
+                    btnDel.classList.add('btn-delete');
+                    btnDel.innerHTML = '<i class="bx bx-trash"></i>';
+                    btnDel.addEventListener('click', () => eliminarCliente(item.id));
+                    tdDel.appendChild(btnDel);
                 });
+            })
+            .catch(err => {
+                console.error('Error al cargar clientes:', err);
+                tbody.innerHTML = '<tr><td colspan="9">Error cargando datos.</td></tr>';
             });
     }
 
@@ -89,12 +92,10 @@ document.addEventListener('DOMContentLoaded', function () {
             estado:    selEstado.value.trim()
         };
 
-        // Validación básica
-        const url    = editarId ? `${apiUrl}${editarId}/` : apiUrl;
+        const url    = editarId ? ${apiUrl}${editarId}/ : apiUrl;
         const method = editarId ? 'PUT' : 'POST';
 
         fetch(url, {
-            // Usamos PUT si estamos editando, POST si es nuevo
             method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -103,22 +104,18 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!res.ok) throw new Error('Error al guardar');
             modal.style.display = 'none';
             cargarClientes();
-
         })
         .catch(err => {
-            // Manejo de errores
             console.error(err);
             alert('Hubo un problema al guardar el cliente.');
         });
     });
 
-    // Eliminar cliente (marcar estado=0 )
-    function eliminarCliente(id)    {
-        // Confirmación antes de eliminar
+    // Eliminar cliente (marcar estado=0)
+    function eliminarCliente(id) {
         if (!confirm('¿Seguro que deseas dar de baja a este cliente?')) return;
-        // En lugar de eliminar, actualizamos el estado a 0
-        fetch(`${apiUrl}${id}/`, { method: 'DELETE' })
-            
+
+        fetch(${apiUrl}${id}/, { method: 'DELETE' })
             .then(res => {
                 if (!res.ok) throw new Error('Error al dar de baja');
                 cargarClientes();
@@ -131,4 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Carga inicial
     cargarClientes();
-});
+}
+
+// Exporta la función para poder usarla en la carga dinámica
+window.init = init;
