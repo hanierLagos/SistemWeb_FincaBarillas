@@ -41,12 +41,16 @@ body {
 #menu-toggle.collapsed .menu-text {
   display: none;
   font-size: 14px;
+  color : #1e2a38;
+}
+#menu-togle .menu-text:hover{
+  color :#1e2a38;
 }
 
 #menu-toggle:hover .menu-text {
   display: inline;
   font-size: 14x;
-
+  color: #ffffff;
 }
 
 .menu-toggle__brand {
@@ -128,7 +132,9 @@ body {
 .menu-toggle__size_menu > li > a.Activate {
   background-color: #388e3c;
   color: #e8f0fa;
+  
 }
+
 
 .menu-toggle__submenu {
   list-style: none;
