@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnMenuToggle = document.getElementById("btn-menu-toggle");
   const menuToggle = document.getElementById("menu-toggle");
   const navProfile = document.querySelector(".nav__profile");
-  const navProfileSubmenu = document.querySelector(".nav_profile_submenu");
+  const navProfileSubmenu = document.querySelector(".nav__profile__submenu");
 
   // === 1. Manejo de submenús en el menú lateral (solo uno abierto a la vez) ===
   menuItemsWithSubmenu.forEach((menuLink) => {
@@ -121,11 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
               script.src = scriptName;
               script.type = "text/javascript";
               script.onload = () => {
-<<<<<<< HEAD
                 console.log(`✅ Script cargado: ${scriptName}`);
-=======
-                console.log(✅ Script cargado: ${scriptName});
->>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
                 // Suponemos que cada script tiene una función init() para inicializar el contenido cargado
                 if (typeof init === "function") {
                   init();
@@ -137,11 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
           })
           .catch(err => {
             console.error(err);
-<<<<<<< HEAD
             mainContent.innerHTML = `<p>Error al cargar la página <strong>${page}</strong>.</p>`;
-=======
-            mainContent.innerHTML = <p>Error al cargar la página <strong>${page}</strong>.</p>;
->>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
           });
       }
     });
@@ -169,8 +161,4 @@ document.addEventListener('DOMContentLoaded', () => {
     menu.classList.toggle('open');
     content.classList.toggle('shifted');
   });
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78

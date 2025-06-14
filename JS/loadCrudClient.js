@@ -92,11 +92,7 @@ function init() {
             estado:    selEstado.value.trim()
         };
 
-<<<<<<< HEAD
         const url    = editarId ? `${apiUrl}${editarId}/` : apiUrl;
-=======
-        const url    = editarId ? ${apiUrl}${editarId}/ : apiUrl;
->>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
         const method = editarId ? 'PUT' : 'POST';
 
         fetch(url, {
@@ -119,11 +115,7 @@ function init() {
     function eliminarCliente(id) {
         if (!confirm('¿Seguro que deseas dar de baja a este cliente?')) return;
 
-<<<<<<< HEAD
         fetch(`${apiUrl}${id}/`, { method: 'DELETE' })
-=======
-        fetch(${apiUrl}${id}/, { method: 'DELETE' })
->>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
             .then(res => {
                 if (!res.ok) throw new Error('Error al dar de baja');
                 cargarClientes();
@@ -139,8 +131,4 @@ function init() {
 }
 
 // Exporta la función para poder usarla en la carga dinámica
-<<<<<<< HEAD
 window.init = init;
-=======
-window.init = init;
->>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78

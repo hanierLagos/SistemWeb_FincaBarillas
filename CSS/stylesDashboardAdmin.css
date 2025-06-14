@@ -160,14 +160,14 @@ body {
   color: #388e3c;
 }
 
-.menu-toggle_submenu li a .menu-toggle_icon {
+.menu-toggle__submenu li a .menu-toggle__icon {
   font-size: 1.1rem;
   min-width: 20px;
   text-align: center;
 }
 
 /* Mostrar submenu cuando li tenga clase open */
-.menu-toggle_size_menu li.open > .menu-toggle_submenu {
+.menu-toggle__size_menu li.open > .menu-toggle__submenu {
   display: flex;
   flex-direction: column;
 }
@@ -217,7 +217,7 @@ nav {
   width: 100%;
 }
 
-.nav_form-group_input {
+.nav__form-group__input {
   width: 100%;
   padding: 10px 40px 10px 15px;
   border-radius: 20px;
@@ -228,16 +228,16 @@ nav {
   min-width: 0;
 }
 
-.nav_form-group_input::placeholder {
+.nav__form-group__input::placeholder {
   color: #9aa7b3;
 }
 
-.nav_form-group_input:focus {
+.nav__form-group__input:focus {
   outline: none;
   border-color: #4fc3f7;
 }
 
-.nav_form-group_icon {
+.nav__form-group__icon {
   position: absolute;
   right: 15px;
   top: 50%;
@@ -263,7 +263,7 @@ nav {
   color: #388e3c;
 }
 
-.nav_link_badge {
+.nav__link__badge {
   position: absolute;
   top: -5px;
   right: -10px;
@@ -298,25 +298,25 @@ nav {
   margin-right: 10px;
 }
 
-.nav_profile_name {
+.nav__profile__name {
   font-weight: 600;
   color: #2c3e50;
   margin-right: 5px;
   white-space: nowrap;
 }
 
-.nav_profile_icon {
+.nav__profile__icon {
   font-size: 1.2rem;
   color: #647d95;
   transition: color 0.3s ease;
 }
 
-.nav_profile:hover .navprofile_icon {
+.nav__profile:hover .nav__profile__icon {
   color: #e8f0fa;
 }
 
 /* Menu desplegable perfil */
-.nav_profile_submenu {
+.nav__profile__submenu {
   position: absolute;
   top: 50px;
   right: 0;
@@ -330,7 +330,7 @@ nav {
   z-index: 100;
 }
 
-.nav_profile:hover .navprofile_submenu {
+.nav__profile:hover .nav__profile__submenu {
   display: block;
 }
 
@@ -622,8 +622,5 @@ main {
   #btn-menu-toggle:hover {
     color: #1e2a38;
   }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 653e3b069a7181ccb840aede4ca097c2e2dcaf78
