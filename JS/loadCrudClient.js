@@ -68,7 +68,7 @@ function init() {
         inpDireccion.value = cliente?.direccion || '';
         selEstado.value    = cliente?.estado    || '1';
 
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
     }
 
     // Cerrar modal
@@ -104,6 +104,7 @@ function init() {
             if (!res.ok) throw new Error('Error al guardar');
             modal.style.display = 'none';
             cargarClientes();
+            
         })
         .catch(err => {
             console.error(err);

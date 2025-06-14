@@ -64,7 +64,7 @@ function init() {
         inpDescripcion.value  = typeProduct?.description || '';
 
         // Mostramos el modal
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
     }
 
     // Cierra el modal cuando se hace click en la X

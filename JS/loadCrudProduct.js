@@ -128,7 +128,7 @@ function init () {
       selectTipoProducto.value = '';
     }
 
-    modal.style.display = 'block';
+    modal.style.display = 'flex';
   }
 
   closeModal.addEventListener('click', () => {
