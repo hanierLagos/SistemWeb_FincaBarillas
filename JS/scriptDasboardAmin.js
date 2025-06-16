@@ -153,12 +153,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const btnToggle = document.getElementById('btn-menu-toggle');
-  const menu = document.getElementById('menu-toggle');
+  // Obtener elementos
+  const btnMenuToggle = document.getElementById('btn-menu-toggle');
+  const menuToggle = document.getElementById('menu-toggle');
   const content = document.getElementById('content');
 
-  btnToggle.addEventListener('click', () => {
-    menu.classList.toggle('open');
+  // Función para abrir/cerrar menú lateral
+  function toggleMenu() {
+    menuToggle.classList.toggle('open');
     content.classList.toggle('shifted');
+  }
+
+  // Evento clic en botón para abrir/cerrar menú
+  btnMenuToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // Evitar que el clic se propague al contenido
+    toggleMenu();
   });
+
+  // Evento clic en contenido para cerrar menú si está abierto
+  content.addEventListener('click', () => {
+    if (menuToggle.classList.contains('open')) {
+      toggleMenu();
+    }
+  });
+
+  // Opcional: cerrar menú si pulsas ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "Escape" && menuToggle.classList.contains('open')) {
+      toggleMenu();
+    }
+  });
+
+
 });

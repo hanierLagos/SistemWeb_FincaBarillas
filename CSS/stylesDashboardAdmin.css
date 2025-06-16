@@ -36,6 +36,12 @@ body {
     width: 250px;
   }
 }
+/* Expandido al hacer hover en desktop */
+@media(min-width: 1025px) {
+   #menu-toggle:hover {
+    width: 250px !important;
+  }
+}
 
 /* Colapsar texto cuando el menú está cerrado */
 #menu-toggle.collapsed .menu-text {
@@ -190,6 +196,21 @@ body {
   #menu-toggle:hover ~ #content {
     margin-left: 250px;
   }
+}
+
+.btn-menu-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1001;
+  background-color: #3498db;
+  border: none;
+  color: white;
+  font-size: 24px;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: none; /* Se muestra solo en móvil */
 }
 
 /* ===== NAVBAR GENERAL ===== */
@@ -588,7 +609,7 @@ main {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   /* Menú lateral */
   #menu-toggle {
     width: 200px;
