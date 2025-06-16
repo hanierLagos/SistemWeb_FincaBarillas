@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Acizar+Serif:ital,wght@0,300..900;1,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    background-color: #1d1d1d;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ====== ESTILOS PARA ENCABEZADO Y NAVEGACIÓN ====== */
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    color: #DEF4F6;
+    padding: 15px 20px;
+}
+
+.header-nav h1 {
+    margin: 0;
+}
+
+.header-nav nav {
+    display: flex;
+    gap: 15px;
+}
+
+.header-nav nav a {
+    text-decoration: none;
+    color: #DEF4F6;
+    font-weight: bold;
+}
+.nav-links a:hover {
+    color: #167A4E;
+}
+
+.logo-container img {
+    width: 50px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.logo {
+    flex-grow: 1;
+    text-align: left;
+}
+
+/* ====== SECCIÓN PRINCIPAL ====== */
+.hero {
+    background: url('/Images/finca.jpeg') no-repeat center center/ cover;
+    background-color: #7bad6c;
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+
+/* ====== LOGIN WRAPPER CENTRADO ====== */
+.wrapper {
+    max-width: 420px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 10px;
+    padding: 30px 40px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    margin: 40px auto; /* Centra horizontalmente */
+    /* background: url('/Images/paije-oscuro.jpg') no-repeat center center; */
+    background-size: cover;
+    position: relative;
+    z-index: 2;
+}
+
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-container {
+    position: relative;
+    margin: 30px 0;
+    width: 100%;
+    height: 50px;
+}
+
+.input-container input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    font-size: 16px;
+    color: white;
+    padding: 20px 45px 20px 20px;
+}
+
+.input-container input::placeholder {
+    color: #fff;
+}
+
+.input-container i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #fff;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+
+.remember-forgot label input {
+    accent-color: #fff;
+    margin-right: 5px;
+}
+
+.remember-forgot a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    width: 100%;
+    height: 45px;
+    background: #167A4E;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #DEF4F6;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #DEF4F6;
+    color: #1D1D1D;
+}
+
+.register-link {
+    text-align: center;
+    margin: 20px 0 15px;
+    font-size: 14.5px;
+}
+
+.register-link p a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
+
+/* ====== PIE DE PÁGINA ====== */
+.footer {
+    background-color: #000;
+    color: #DEF4F6;
+    padding: 20px 40px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    margin-top: auto;
+}
+
+.footer__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.footer__section {
+    flex: 1 1 200px;
+    min-width: 200px;
+}
+
+.footer__text {
+    margin: 0 0 10px 0;
+}
+
+.footer__link {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer__link:hover {
+    text-decoration: underline;
+    color: #00bfff;
+}
+
+.footer__social-icons {
+    margin-top: 5px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.footer__social-icon {
+    transition: transform 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+}
+
+.footer__social-icon:hover {
+    transform: scale(1.05);
+    filter: brightness(1.3);
+}
+/* ======================= */
+/* RESPONSIVE DESIGN      */
+/* ======================= */
+
+/* Ajustes generales para pantallas medianas */
+@media (max-width: 992px) {
+  .header-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+  .wrapper {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .hero {
+    padding: 40px 15px;
+    font-size: 0.95rem;
+  }
+
+  
+}
+
+/* Ajustes específicos para móviles */
+@media (max-width: 576px) {
+    .header-nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+
+  .logo-container img {
+    width: 40px;
+  }
+
+  .wrapper h1 {
+    font-size: 28px;
+  }
+
+  .btn {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .input-container {
+    height: 45px;
+    margin: 20px 0;
+  }
+
+  .input-container input {
+    font-size: 14px;
+    padding: 15px 40px 15px 15px;
+  }
+
+  .input-container i {
+    font-size: 16px;
+  }
+
+  .remember-forgot {
+    flex-direction: column;
+    gap: 5px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+
+
+}
