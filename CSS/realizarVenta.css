@@ -1,0 +1,359 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+body {
+  background-color: #f9fafb;
+  color: #333;
+  display: flex;
+}
+
+.header {
+  background-color: #1b2b26;
+  color: white;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  top: 0;
+}
+
+
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-areas: 
+    "tipo-cliente tipo-cliente"
+    "info-venta info-venta"
+    "productos-disponibles detalle-venta"
+    "acciones acciones";
+  gap: 1rem;
+  height: calc(150vh - 80px);
+  padding: 1rem 2rem;
+  background: #f9fafb;
+}
+
+.tipo-cliente {
+  grid-area: tipo-cliente;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tipo-venta label {
+  margin-right: 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.cliente label {
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.cliente select {
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+.info-venta {
+  grid-area: info-venta;
+  background: white;
+  border-radius: 8px;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.info-venta h2 {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  color: #1b2b26;
+  font-weight: 700;
+  border-bottom: 2px solid #2d6a4f;
+  padding-bottom: 0.2rem;
+}
+
+.info-venta label {
+  flex: 1 1 150px;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.info-venta input[type="text"],
+.info-venta input[type="date"],
+.info-venta select {
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  font-size: 1rem;
+  color: #333;
+  background: #fafafa;
+  transition: border-color 0.2s ease;
+}
+
+.info-venta input[type="text"]:focus,
+.info-venta input[type="date"]:focus,
+.info-venta select:focus {
+  border-color: #2d6a4f;
+  outline: none;
+  background: #fff;
+}
+
+.btn-descuento {
+  background-color: #40916c;
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  align-self: flex-end;
+  height: 38px;
+}
+
+.btn-descuento:hover {
+  background-color: #2d6a4f;
+}
+
+.acciones {
+  grid-area: acciones;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-finalizar, .btn-anular {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.15);
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.btn-finalizar {
+  background-color: #2d6a4f;
+  color: white;
+}
+
+.btn-finalizar:hover {
+  background-color: #1b472e;
+}
+
+.btn-anular {
+  background-color: #e63946;
+  color: white;
+}
+
+.btn-anular:hover {
+  background-color: #a62b35;
+}
+
+/* Productos disponibles */
+.productos-disponibles {
+  grid-area: productos-disponibles;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.productos-disponibles h2 {
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  color: #1b2b26;
+  border-bottom: 2px solid #2d6a4f;
+  padding-bottom: 0.2rem;
+}
+
+#busqueda {
+  padding: 0.5rem;
+  margin-bottom: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  font-size: 1rem;
+  width: 100%;
+  box-shadow: inset 1px 1px 3px rgb(0 0 0 / 0.05);
+  transition: border-color 0.3s ease;
+}
+
+#busqueda:focus {
+  border-color: #2d6a4f;
+  outline: none;
+}
+
+/* Tabla productos: más altura */
+#tablaProductos {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-y: auto;
+  display: block;
+  max-height: 82vh;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#tablaProductos thead, #tablaProductos tbody, #tablaProductos tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+#tablaProductos thead {
+  background-color: #2d6a4f;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+#tablaProductos th, #tablaProductos td {
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#tablaProductos tbody tr:hover {
+  background-color: #f1f9f5;
+}
+
+#tablaProductos button {
+  background-color: #2d6a4f;
+  border: none;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+#tablaProductos button:hover {
+  background-color: #1b472e;
+}
+
+/* Detalle de venta */
+.detalle-venta {
+  grid-area: detalle-venta;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+  overflow-x: auto;
+}
+
+.detalle-venta h2 {
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  color: #1b2b26;
+  border-bottom: 2px solid #2d6a4f;
+  padding-bottom: 0.2rem;
+}
+
+.detalle-venta table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.detalle-venta th, .detalle-venta td {
+  border: 1px solid #ccc;
+  padding: 0.5rem 0.8rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.detalle-venta thead {
+  background-color: #2d6a4f;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.detalle-venta tbody tr:hover {
+  background-color: #f1f9f5;
+}
+
+.detalle-venta button {
+  background-color: #e63946;
+  border: none;
+  color: white;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.detalle-venta button:hover {
+  background-color: #9d222d;
+}
+
+/* Scrollbars */
+#tablaProductos::-webkit-scrollbar,
+.detalle-venta table::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+#tablaProductos::-webkit-scrollbar-track,
+.detalle-venta table::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+#tablaProductos::-webkit-scrollbar-thumb,
+.detalle-venta table::-webkit-scrollbar-thumb {
+  background: #2d6a4f;
+  border-radius: 4px;
+}
+
+@media (max-width: 900px) {
+  .contenedor {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "tipo-cliente"
+      "info-venta"
+      "productos-disponibles"
+      "detalle-venta"
+      "acciones";
+    height: auto;
+  }
+
+  #tablaProductos {
+    max-height: 300px;
+  }
+
+  .acciones {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}

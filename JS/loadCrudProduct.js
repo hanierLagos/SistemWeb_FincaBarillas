@@ -13,6 +13,7 @@ function init () {
   const inpFechaSiembra = document.getElementById('fechaSiembra');
   const inpCantidadDisp = document.getElementById('cantidadDisponible');
   const inpCantidadMinima = document.getElementById('cantidadMinima');
+  const inpPrecioVenta = document.getElementById('precioVenta');
   const selEstado = document.getElementById('estado');
 
   const apiUrl = 'http://127.0.0.1:8000/api/Producto/';
@@ -24,7 +25,7 @@ function init () {
       .then(res => {
         const contentType = res.headers.get('content-type');
         if (!res.ok) {
-          return res.text().then(text => { throw new Error(`Error ${res.status}: ${text}`); });
+          return res.text().then(text => { throw new Error(Error ${res.status}: ${text}); });
         }
         if (contentType && contentType.includes('application/json')) {
           return res.json();
@@ -47,7 +48,8 @@ function init () {
           tr.insertCell(4).textContent = item.FechaSiembra || 'No especificada';
           tr.insertCell(5).textContent = item.CantidadDisponible || 0;
           tr.insertCell(6).textContent = item.CantidadMinima || 0;
-          tr.insertCell(7).textContent = item.estado || '';
+          tr.insertCell(7).textContent = item.precioVenta ? parseFloat(item.precioVenta).toFixed(2) : '0.00';
+          tr.insertCell(8).textContent = item.estado || '';
 
           // Botón Editar
           const tdEdit = tr.insertCell(8);
@@ -74,7 +76,7 @@ function init () {
       .then(res => {
         const contentType = res.headers.get('content-type');
         if (!res.ok) {
-          return res.text().then(text => { throw new Error(`Error ${res.status}: ${text}`); });
+          return res.text().then(text => { throw new Error(Error ${res.status}: ${text}); });
         }
         if (contentType && contentType.includes('application/json')) {
           return res.json();
@@ -109,13 +111,14 @@ function init () {
       const yyyy = fecha.getFullYear();
       const mm = String(fecha.getMonth() + 1).padStart(2, '0');
       const dd = String(fecha.getDate()).padStart(2, '0');
-      inpFechaSiembra.value = `${yyyy}-${mm}-${dd}`;
+      inpFechaSiembra.value = ${yyyy}-${mm}-${dd};
     } else {
       inpFechaSiembra.value = '';
     }
 
     inpCantidadDisp.value = producto?.CantidadDisponible || '';
     inpCantidadMinima.value = producto?.CantidadMinima || '';
+    inpPrecioVenta.value = producto?.precioVenta || '';
     selEstado.value = producto?.estado || 'Activo';
 
     if (producto && producto.tipoProductoId) {
@@ -154,11 +157,12 @@ function init () {
         FechaSiembra: inpFechaSiembra.value || null,
         CantidadDisponible: Number(inpCantidadDisp.value) || 0,
         CantidadMinima: Number(inpCantidadMinima.value) || 0,
+        precioVenta: parseFloat(inpPrecioVenta.value) || 0.00,
         estado: selEstado.value,
     };
 
 
-    const url = editarId ? `${apiUrl}${editarId}/` : apiUrl;
+    const url = editarId ? ${apiUrl}${editarId}/ : apiUrl;
     const method = editarId ? 'PUT' : 'POST';
 
     fetch(url, {
@@ -192,7 +196,7 @@ function init () {
 
     if (!confirm('¿Está seguro de eliminar este producto?')) return;
 
-    fetch(`${apiUrl}${id}/`, {
+    fetch(${apiUrl}${id}/, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'

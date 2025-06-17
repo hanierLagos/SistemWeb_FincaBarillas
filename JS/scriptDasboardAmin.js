@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnMenuToggle = document.getElementById("btn-menu-toggle");
   const menuToggle = document.getElementById("menu-toggle");
   const navProfile = document.querySelector(".nav__profile");
-  const navProfileSubmenu = document.querySelector(".nav__profile__submenu");
+  const navProfileSubmenu = document.querySelector(".nav_profile_submenu");
 
   // === 1. Manejo de submenús en el menú lateral (solo uno abierto a la vez) ===
   menuItemsWithSubmenu.forEach((menuLink) => {
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
               script.src = scriptName;
               script.type = "text/javascript";
               script.onload = () => {
-                console.log(`✅ Script cargado: ${scriptName}`);
+                console.log(✅ Script cargado: ${scriptName});
                 // Suponemos que cada script tiene una función init() para inicializar el contenido cargado
                 if (typeof init === "function") {
                   init();
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
           })
           .catch(err => {
             console.error(err);
-            mainContent.innerHTML = `<p>Error al cargar la página <strong>${page}</strong>.</p>`;
+            mainContent.innerHTML = <p>Error al cargar la página <strong>${page}</strong>.</p>;
           });
       }
     });
@@ -144,7 +144,8 @@ document.addEventListener("DOMContentLoaded", () => {
       'clientList.html':       'JS/loadCrudClient.js',
       'productList.html':      'JS/loadCrudProduct.js',
       'typeProductList.html':  'JS/loadCrudTypeProdcut.js',
-      'report.html':           'JS/report.js'
+      'report.html':           'JS/report.js',
+      'realizarVenta.html':    'JS/realizarVenta.js',
     };
     return mapa[page] || null;
   }
