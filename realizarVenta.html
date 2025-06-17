@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Realizar Venta</title>
+  <link rel="stylesheet" href="CSS/realizarVenta.css">
+</head>
+<body>
+  <main class="contenedor">
+    <section class="bloque tipo-cliente">
+      <div class="tipo-venta">
+        <label>Tipo de Venta:</label>
+        <label><input type="radio" name="venta" checked disabled> Productos</label>
+      </div>
+      <div class="cliente">
+        <label for="cliente" class="">Cliente:</label>
+        <select id="cliente" class="" required>
+          <option value="">Seleccione un cliente</option>
+          <!-- Opciones cargadas dinámicamente -->
+        </select>
+        
+      </div>
+    </section>
+
+
+    <section class="bloque info-venta">
+      <h2>VENTA</h2>
+      <label for="numeroVenta">Nº:
+        <input type="text" id="numeroVenta" name="numeroVenta" readonly>
+      </label>
+      <label>Fecha:
+        <input type="date" id="fechaVenta">
+      </label>
+      <label>Método de Pago:
+        <select id="metodoPago">
+          <option value="efectivo">EFECTIVO</option>
+          <option value="tarjeta">TARJETA</option>
+        </select>
+      </label>
+      <label>Monto Total:
+        <input type="text" id="montoTotal" value="000" readonly>
+      </label>
+
+      <div class="acciones">
+        <button class="btn-finalizar">💾 Finalizar Venta</button>
+        <button class="btn-anular">❌ Anular Venta</button>
+      </div>
+    </section>
+
+    <section class="bloque productos-disponibles">
+      <h2>Productos Disponibles</h2>
+      <input type="text" id="busqueda" placeholder="Buscar producto...">
+      <table id="tablaProductos">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio Venta</th>
+            <th>Cantidad</th>
+            <th>Agregar</th>
+          </tr>
+        </thead>
+        <tbody id="productosDisponibles">
+          <!-- Productos desde JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <section class="bloque detalle-venta">
+      <h2>Detalles de Venta</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th>Precio Unitario</th>
+            <th>Cantidad</th>
+            <th>Sub Total</th>
+            <th>Quitar</th>
+          </tr>
+        </thead>
+        <tbody id="detalleVenta">
+          <!-- Items agregados -->
+        </tbody>
+      </table>
+    </section>
+
+    <script src="JS/realizarVenta.js"></script>
+  </main>

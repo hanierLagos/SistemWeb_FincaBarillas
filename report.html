@@ -9,7 +9,6 @@
 
 </head>
 <body>
-
   <div class="container py-5">
     <h2 class="mb-4 text-center">Reporte de Ventas</h2>
 
@@ -24,7 +23,7 @@
         </div>
       </div>
 
-      <!-- Top Clientes -->
+      <!-- Top 10 Clientes -->
       <div class="col-md-6">
         <div class="card shadow-sm">
           <div class="card-header bg-success text-white">Top 10 Clientes con más Ventas</div>
@@ -33,8 +32,19 @@
           </div>
         </div>
       </div>
+
+      <!-- Top 10 Productos más Vendidos -->
+      <div class="col-md-12">
+        <div class="card shadow-sm">
+          <div class="card-header bg-danger text-white">Top 10 Productos más Vendidos</div>
+          <div class="card-body">
+            <canvas id="top" height="50"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
 
 
   <section class="filter-section">
