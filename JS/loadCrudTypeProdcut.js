@@ -1,120 +1,158 @@
 function init() {
+  // Referencias a elementos del DOM
+  const tbody       = document.querySelector('#loadTypeProductList tbody');  // Cuerpo de la tabla
+  const addBtn      = document.getElementById('addTypeProductBtn');         // Botón "Agregar Tipo de Producto"
+  const modal       = document.getElementById('typeProductModal');          // Modal para agregar/editar
+  const closeModal  = document.getElementById('closeModal');                // Botón cerrar modal (X)
+  const form        = document.getElementById('typeProductForm');           // Formulario dentro del modal
+  const title       = document.getElementById('modal-title');               // Título del modal
+  const apiUrl      = 'http://127.0.0.1:8000/api/TipoProducto/';           // URL base de la API
 
-    // Referencias a elementos del DOM
-    const tbody       = document.querySelector('#loadTypeProductList tbody');  // Cuerpo de la tabla
-    const addBtn      = document.getElementById('addTypeProductBtn');          // Botón "Agregar Tipo de Producto"
-    const modal       = document.getElementById('typeProductModal');          // Modal de agregar/editar
-    const closeModal  = document.getElementById('closeModal');               // Botón cerrar modal (X)
-    const form        = document.getElementById('typeProductForm');            // Formulario dentro del modal
-    const title       = document.getElementById('modal-title');                // Título del modal
-    const apiUrl      = 'http://127.0.0.1:8000/api/TipoProducto/';             // URL base de la API
+  // Referencias a campos del formulario
+  const inpCodigo       = document.getElementById('codigo');                // Campo código
+  const inpDescripcion  = document.getElementById('description');           // Campo descripción
 
-    // Referencias a campos del formulario
-    const inpCodigo       = document.getElementById('codigo');                 // Campo código
-    const inpDescripcion  = document.getElementById('description');            // Campo descripción
+  // Variable para almacenar el ID del tipo de producto que se está editando (null si es nuevo)
+  let editarId = null;
 
-    // Variable que indica si estamos editando un tipo de producto
-    let editarId = null;
+  // -------- Función para cargar los tipos de productos desde la API y mostrarlos --------
+  async function cargarTipoProductos() {
+    try {
+      const res = await fetch(apiUrl);
+      if (!res.ok) throw new Error(`Error al cargar tipos de productos (status: ${res.status})`);
+      const data = await res.json();
 
-    // Función para cargar los tipos de productos desde la API y mostrarlos en la tabla
-    function cargarTipoProductos() {
-        fetch(apiUrl)
-            .then(res => res.json())          // Convertimos la respuesta en JSON
-            .then(data => {
-                tbody.innerHTML = '';         // Limpiamos la tabla
+      // Limpiar tabla antes de llenar
+      tbody.innerHTML = '';
 
-                // Iteramos sobre cada tipo de producto recibido
-                data.forEach(item => {
-                    const tr = tbody.insertRow(); // Creamos una fila nueva
+      // Llenar la tabla con cada tipo de producto
+      data.forEach(item => {
+        const tr = document.createElement('tr');
 
-                    // Insertamos las celdas con los datos
-                    tr.insertCell(0).textContent = item.id;
-                    tr.insertCell(1).textContent = item.codigo;
-                    tr.insertCell(2).textContent = item.description;
+        // Celdas de id, código y descripción
+        tr.appendChild(crearCeldaTexto(item.id));
+        tr.appendChild(crearCeldaTexto(item.codigo));
+        tr.appendChild(crearCeldaTexto(item.description));
 
-                    // Botón editar
-                    const tdEdit = tr.insertCell(3);
-                    const btnEdit = document.createElement('button');
-                    btnEdit.classList.add('btn-edit');
-                    btnEdit.innerHTML = '<i class="bx bx-edit"></i>';
-                    btnEdit.addEventListener('click', () => abrirModal(item)); // Abrimos el modal con los datos cargados
-                    tdEdit.appendChild(btnEdit);
+        // Celda y botón para editar
+        const tdEdit = document.createElement('td');
+        const btnEdit = document.createElement('button');
+        btnEdit.classList.add('btn-edit');
+        btnEdit.setAttribute('aria-label', `Editar tipo de producto ${item.codigo}`);
+        btnEdit.innerHTML = '<i class="bx bx-edit"></i>';
+        btnEdit.addEventListener('click', () => abrirModal(item));
+        tdEdit.appendChild(btnEdit);
+        tr.appendChild(tdEdit);
 
-                    // Botón eliminar
-                    const tdDel = tr.insertCell(4);
-                    const btnDel = document.createElement('button');
-                    btnDel.classList.add('btn-delete');
-                    btnDel.innerHTML = '<i class="bx bx-trash"></i>';
-                    btnDel.addEventListener('click', () => eliminarTipoProducto(item.id)); // Eliminar (desactivado por ahora)
-                    tdDel.appendChild(btnDel);
-                });
-            })
-            .catch(err => {
-                console.error('Error al cargar los tipos de productos:', err);
-            });
+        // Celda y botón para eliminar (deshabilitado, solo alerta)
+        const tdDel = document.createElement('td');
+        const btnDel = document.createElement('button');
+        btnDel.classList.add('btn-delete');
+        btnDel.setAttribute('aria-label', `Eliminar tipo de producto ${item.codigo}`);
+        btnDel.innerHTML = '<i class="bx bx-trash"></i>';
+        btnDel.addEventListener('click', () => eliminarTipoProducto(item.id));
+        tdDel.appendChild(btnDel);
+        tr.appendChild(tdDel);
+
+        tbody.appendChild(tr);
+      });
+    } catch (error) {
+      console.error('Error al cargar los tipos de productos:', error);
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red;">
+                          Error al cargar los tipos de productos.
+                         </td></tr>`;
+    }
+  }
+
+  // Función auxiliar para crear una celda <td> con texto
+  function crearCeldaTexto(texto) {
+    const td = document.createElement('td');
+    td.textContent = texto;
+    return td;
+  }
+
+  // -------- Función para abrir el modal, ya sea para agregar o editar --------
+  function abrirModal(typeProduct = null) {
+    editarId = typeProduct ? typeProduct.id : null;
+    title.textContent = typeProduct ? 'Editar Tipo de Producto' : 'Agregar Tipo de Producto';
+
+    inpCodigo.value      = typeProduct?.codigo || '';
+    inpDescripcion.value = typeProduct?.description || '';
+
+    modal.style.display = 'flex';
+
+    // Poner foco en el primer campo para mejor usabilidad
+    inpCodigo.focus();
+  }
+
+  // -------- Función para cerrar el modal y limpiar el formulario --------
+  function cerrarModal() {
+    modal.style.display = 'none';
+    form.reset();
+    editarId = null;
+  }
+
+  // Eventos para cerrar modal
+  closeModal.addEventListener('click', cerrarModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) cerrarModal();
+  });
+
+  // Abrir modal modo agregar al hacer click en el botón
+  addBtn.addEventListener('click', () => abrirModal());
+
+  // -------- Evento para enviar formulario (guardar o editar) --------
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const codigoTrim = inpCodigo.value.trim();
+    const descripcionTrim = inpDescripcion.value.trim();
+
+    // Validación simple
+    if (!codigoTrim || !descripcionTrim) {
+      alert('Por favor, complete todos los campos.');
+      return;
     }
 
-    // Función para abrir el modal, ya sea para agregar o editar
-    function abrirModal(typeProduct = null) {
-        editarId = typeProduct ? typeProduct.id : null; // Si existe, estamos editando
-        title.textContent = typeProduct ? 'Editar Tipo de Producto' : 'Agregar Tipo de Producto';
+    const payload = {
+      codigo: codigoTrim,
+      description: descripcionTrim
+    };
 
-        // Llenamos los campos si es edición, o los dejamos vacíos si es nuevo
-        inpCodigo.value       = typeProduct?.codigo || '';
-        inpDescripcion.value  = typeProduct?.description || '';
+    const url = editarId ? `${apiUrl}${editarId}/` : apiUrl;
+    const method = editarId ? 'PUT' : 'POST';
 
-        // Mostramos el modal
-        modal.style.display = 'flex';
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        throw new Error(`Error al guardar: ${res.status} ${errorText}`);
+      }
+
+      // Opcionalmente leer la respuesta si la API retorna el objeto guardado
+      // const result = await res.json();
+
+      cerrarModal();
+      cargarTipoProductos();  // Recargar tabla con los datos actualizados
+    } catch (error) {
+      console.error('Error al guardar tipo de producto:', error);
+      alert('Hubo un problema al guardar el tipo de producto.');
     }
+  });
 
-    // Cierra el modal cuando se hace click en la X
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
+  // -------- Función para eliminar un tipo de producto (deshabilitada) --------
+  function eliminarTipoProducto(id) {
+    alert('No se puede eliminar un tipo de producto, por cuestiones internas.');
+  }
 
-    // Abre el modal en modo "agregar" al hacer click en el botón correspondiente
-    addBtn.addEventListener('click', () => abrirModal());
+  // Cargar los datos inicialmente
+  cargarTipoProductos();
+}
 
-    // Evento al enviar el formulario (guardar o editar)
-    form.addEventListener('submit', function (e) {
-        e.preventDefault(); // Prevenimos el envío tradicional del formulario
-
-        // Creamos el objeto con los datos del formulario
-        const payload = {
-            codigo:      inpCodigo.value.trim(),
-            description: inpDescripcion.value.trim()
-        };
-
-        // Determinamos si es una creación (POST) o una actualización (PUT)
-        const url    = editarId ? `${apiUrl}${editarId}/` : apiUrl;
-        const method = editarId ? 'PUT' : 'POST';
-
-        // Enviamos los datos a la API
-        fetch(url, {
-            method ,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        })
-        .then(res => {
-            if (!res.ok) throw new Error('Error al guardar');
-            modal.style.display = 'none';  // Cerramos el modal
-            cargarTipoProductos();         // Recargamos los datos de la tabla
-        })
-        .catch(err => {
-            console.error(err);
-            alert('Hubo un problema al guardar el tipo de producto.');
-        });
-    });
-
-    // Función para eliminar un tipo de producto (deshabilitada por motivos internos)
-    function eliminarTipoProducto(id) {
-        alert('No se puede eliminar un tipo de producto, por cuestiones internas.');
-    }
-
-    // Cargamos los datos al inicio cuando se abre la página
-    cargarTipoProductos();
-};
-
-window.init = init; // Exponemos la función init para que pueda ser llamada desde el HTML
+// Hacemos disponible la función init en window para poder llamarla desde otro script
+window.init = init;

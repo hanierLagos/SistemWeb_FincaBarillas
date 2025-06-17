@@ -1,4 +1,5 @@
 // URLS de las APIs
+
 const API_PRODUCTOS = 'http://127.0.0.1:8000/api/Producto/';
 const API_VENTAS = 'http://127.0.0.1:8000/api/ventas/';
 const API_DETALLE_VENTA = 'http://127.0.0.1:8000/api/detalleVenta/';
@@ -51,7 +52,7 @@ function cargarClientes() {
       data.forEach(cliente => {
         const opt = document.createElement('option');
         opt.value = cliente.id;
-        opt.textContent = ${cliente.nombres} ${cliente.apellidos} (${cliente.codigo});
+        opt.textContent = `${cliente.nombres} ${cliente.apellidos} (${cliente.codigo})`;
         selectCliente.appendChild(opt);
       });
     });
@@ -75,7 +76,7 @@ function obtenerSiguienteNumeroVenta() {
 
 // Agregar producto
 function agregarProducto(id, nombre, precio, disponible) {
-  const cantidad = prompt(Cantidad a vender (disponible: ${disponible}):);
+  const cantidad = prompt(`Cantidad a vender (disponible: ${disponible}):`);
   const cantidadInt = parseInt(cantidad);
 
   if (isNaN(cantidadInt) || cantidadInt <= 0) return alert('Cantidad no válida');

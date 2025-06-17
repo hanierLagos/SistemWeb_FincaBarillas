@@ -1,40 +1,53 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Selección de elementos relevantes
+  // 1. Manejo de submenús en el menú lateral (solo uno abierto a la vez)
   const menuItemsWithSubmenu = document.querySelectorAll(
     "#menu-toggle li.has-submenu > a.submenu-toggle"
   );
   const clearSearchBtn = document.getElementById("clearSearch");
   const searchInput = document.getElementById("searchInput");
-  const btnMenuToggle = document.getElementById("btn-menu-toggle");
-  const menuToggle = document.getElementById("menu-toggle");
   const navProfile = document.querySelector(".nav__profile");
   const navProfileSubmenu = document.querySelector(".nav_profile_submenu");
 
-  // === 1. Manejo de submenús en el menú lateral (solo uno abierto a la vez) ===
+  // Inicializar submenús cerrados al cargar la página
+  menuItemsWithSubmenu.forEach(menuLink => {
+    const parentLi = menuLink.parentElement;
+    const submenu = parentLi.querySelector(".menu-toggle__submenu");
+    if (submenu) {
+      submenu.style.display = "none"; // ocultar submenú
+      submenu.querySelectorAll("a").forEach(a => a.setAttribute("tabindex", "-1")); // inhabilitar tabulación
+    }
+    menuLink.setAttribute("aria-expanded", "false");
+    parentLi.classList.remove("open");
+  });
+
   menuItemsWithSubmenu.forEach((menuLink) => {
-    // Click para abrir/cerrar submenu
     menuLink.addEventListener("click", (e) => {
       e.preventDefault();
       const parentLi = menuLink.parentElement;
 
-      // Cerrar otros submenús abiertos (excepto el actual)
+      // Cerrar otros submenús abiertos excepto el actual
       document.querySelectorAll("#menu-toggle li.has-submenu.open").forEach((li) => {
         if (li !== parentLi) {
           li.classList.remove("open");
-          li.querySelector("a.submenu-toggle").setAttribute("aria-expanded", "false");
-          // Opcional: poner tabindex -1 para que no sean accesibles con tab
-          li.querySelectorAll(".menu-toggle__submenu a").forEach(a => a.setAttribute("tabindex", "-1"));
+          const submenuToggle = li.querySelector("a.submenu-toggle");
+          if (submenuToggle) submenuToggle.setAttribute("aria-expanded", "false");
+          const submenu = li.querySelector(".menu-toggle__submenu");
+          if (submenu) {
+            submenu.style.display = "none";
+            submenu.querySelectorAll("a").forEach(a => a.setAttribute("tabindex", "-1"));
+          }
         }
       });
 
-      // Alternar submenú actual
+      // Abrir o cerrar el submenu actual
+      const submenu = parentLi.querySelector(".menu-toggle__submenu");
       const isOpen = parentLi.classList.toggle("open");
       menuLink.setAttribute("aria-expanded", isOpen ? "true" : "false");
 
-      // Ajustar tabindex de los links dentro del submenu para accesibilidad
-      parentLi.querySelectorAll(".menu-toggle__submenu a").forEach(a => {
-        a.setAttribute("tabindex", isOpen ? "0" : "-1");
-      });
+      if (submenu) {
+        submenu.style.display = isOpen ? "block" : "none";
+        submenu.querySelectorAll("a").forEach(a => a.setAttribute("tabindex", isOpen ? "0" : "-1"));
+      }
     });
 
     // Permitir abrir submenu con teclado (Enter y Space)
@@ -46,14 +59,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // === 2. Botón para limpiar el campo de búsqueda y enfocar ===
+  // 2. Botón para limpiar el campo de búsqueda y enfocar
   if (clearSearchBtn && searchInput) {
     clearSearchBtn.addEventListener("click", () => {
       searchInput.value = "";
       searchInput.focus();
     });
 
-    // Soporte para teclado en ícono limpiar (Enter y Space)
     clearSearchBtn.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
         e.preventDefault();
@@ -62,19 +74,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
-  // === 4. Toggle del menú de perfil de usuario ===
+  // 3. Toggle del menú de perfil de usuario
   if (navProfile && navProfileSubmenu) {
     navProfile.addEventListener("click", () => {
       const isOpen = navProfile.classList.toggle("open");
       navProfile.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      // Mostrar/ocultar submenu perfil
       navProfileSubmenu.style.display = isOpen ? "block" : "none";
     });
 
-    // Cerrar menú perfil al perder foco (focusout)
     navProfile.addEventListener("focusout", () => {
-      // Timeout para esperar si el foco está dentro del submenu
       setTimeout(() => {
         if (!navProfile.contains(document.activeElement)) {
           navProfile.classList.remove("open");
@@ -85,14 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  
-});
-
-
-document.addEventListener("DOMContentLoaded", () => {
+  // 4. Carga dinámica de contenido y scripts asociados con manejo de errores
   const links = document.querySelectorAll('[data-page]');
   const mainContent = document.getElementById('main-content');
-  let currentScript = null;  // para eliminar scripts anteriores si quieres
+  let currentScript = null;  // para eliminar scripts anteriores si los hay
 
   links.forEach(link => {
     link.addEventListener('click', (e) => {
@@ -110,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
             mainContent.innerHTML = html;
             window.scrollTo(0, 0);
 
-            // Si había un script previo, lo quitamos para evitar duplicados
+            // Remover script previo si existe
             if (currentScript) {
               currentScript.remove();
               currentScript = null;
@@ -121,11 +125,13 @@ document.addEventListener("DOMContentLoaded", () => {
               script.src = scriptName;
               script.type = "text/javascript";
               script.onload = () => {
-                console.log(✅ Script cargado: ${scriptName});
-                // Suponemos que cada script tiene una función init() para inicializar el contenido cargado
+                console.log(`✅ Script cargado: ${scriptName}`);
                 if (typeof init === "function") {
                   init();
                 }
+              };
+              script.onerror = () => {
+                console.error(`❌ Error al cargar el script: ${scriptName}`);
               };
               document.body.appendChild(script);
               currentScript = script;
@@ -133,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
           })
           .catch(err => {
             console.error(err);
-            mainContent.innerHTML = <p>Error al cargar la página <strong>${page}</strong>.</p>;
+            mainContent.innerHTML = `<p>Error al cargar la página <strong>${page}</strong>.</p>`;
           });
       }
     });
@@ -149,41 +155,36 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     return mapa[page] || null;
   }
-});
 
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  // Obtener elementos
+  // 5. Toggle menú lateral (botón y contenido)
   const btnMenuToggle = document.getElementById('btn-menu-toggle');
   const menuToggle = document.getElementById('menu-toggle');
   const content = document.getElementById('content');
 
-  // Función para abrir/cerrar menú lateral
   function toggleMenu() {
     menuToggle.classList.toggle('open');
     content.classList.toggle('shifted');
   }
 
-  // Evento clic en botón para abrir/cerrar menú
-  btnMenuToggle.addEventListener('click', (e) => {
-    e.stopPropagation(); // Evitar que el clic se propague al contenido
-    toggleMenu();
-  });
-
-  // Evento clic en contenido para cerrar menú si está abierto
-  content.addEventListener('click', () => {
-    if (menuToggle.classList.contains('open')) {
+  if (btnMenuToggle) {
+    btnMenuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       toggleMenu();
-    }
-  });
+    });
+  }
 
-  // Opcional: cerrar menú si pulsas ESC
+  if (content) {
+    content.addEventListener('click', () => {
+      if (menuToggle.classList.contains('open')) {
+        toggleMenu();
+      }
+    });
+  }
+
+  // Cerrar menú con tecla ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === "Escape" && menuToggle.classList.contains('open')) {
       toggleMenu();
     }
   });
-
-
 });
