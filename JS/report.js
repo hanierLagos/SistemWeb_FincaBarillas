@@ -37,7 +37,28 @@ async function fetchProductosMasVendidos() {
   }
 }
 
-// Obtiene las ventas filtradas por método de pago (consulta con parámetro)
+const clientesMap = {};
+
+// Carga todos los clientes desde la API y crea un mapa por ID
+async function cargarClientes() {
+  try {
+    const res = await fetch('http://127.0.0.1:8000/api/Cliente/');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+
+    // Mapear clientes por ID
+    data.forEach(cliente => {
+      clientesMap[cliente.id] = cliente;
+    });
+
+    console.log("Clientes cargados:", clientesMap); // útil para depuración
+
+  } catch (error) {
+    console.error('Error al cargar clientes:', error);
+  }
+}
+
+// Obtiene las ventas por método de pago desde la API
 async function fetchVentasPorMetodoPago(metodo) {
   try {
     const url = new URL('http://127.0.0.1:8000/api/ventas/buscar-por-metodo-pago');
@@ -52,37 +73,27 @@ async function fetchVentasPorMetodoPago(metodo) {
   }
 }
 
-// Muestra las ventas filtradas por método de pago en una tabla HTML
+// Muestra la tabla de ventas
 function mostrarVentasTabla(ventas) {
   const tbody = document.getElementById('ventasMetodoTableBody');
-  tbody.innerHTML = ''; // Limpia contenido previo
+  tbody.innerHTML = '';
 
   if (!ventas.length) {
-    // Mensaje cuando no hay resultados (corrige la asignación del innerHTML con comillas)
     tbody.innerHTML = `<tr><td colspan="5" class="text-center">No se encontraron ventas.</td></tr>`;
     return;
   }
 
-  // Crea filas de tabla con los datos de ventas
   ventas.forEach(venta => {
+    const cliente = clientesMap[venta.cliente]; // usa el ID para buscar en el mapa
+
     let nombreCliente = 'N/A';
-    if (venta.cliente) {
-      if (typeof venta.cliente === 'string') {
-        nombreCliente = venta.cliente;
-      } else if (
-        venta.cliente.codigo !== undefined &&
-        venta.cliente.nombres !== undefined &&
-        venta.cliente.apellidos !== undefined
-      ) {
-        nombreCliente = `${venta.cliente.codigo} - ${venta.cliente.nombres} - ${venta.cliente.apellidos}`;
-      } else if (venta.cliente.nombre_completo) {
-        nombreCliente = venta.cliente.nombre_completo;
-      }
+    if (cliente) {
+      nombreCliente = `${cliente.codigo} - ${cliente.nombres} ${cliente.apellidos}`;
     }
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td>${venta.id_venta ?? venta.id ?? 'N/A'}</td>
+      <td>${venta.numero_venta ?? 'N/A'}</td>
       <td>${nombreCliente}</td>
       <td>${venta.monto_total ?? '0'}</td>
       <td>${venta.metodo_pago ?? 'N/A'}</td>
@@ -92,11 +103,13 @@ function mostrarVentasTabla(ventas) {
   });
 }
 
-// Llama a la función que muestra ventas filtradas por método de pago
+// Controlador principal
 async function mostrarVentasMetodoPago(metodo) {
+  await cargarClientes(); // Carga los clientes primero
   const ventas = await fetchVentasPorMetodoPago(metodo);
   mostrarVentasTabla(ventas);
 }
+
 
 // Configura los eventos, por ejemplo, botón para filtrar ventas por método de pago
 function setupEventListeners() {
