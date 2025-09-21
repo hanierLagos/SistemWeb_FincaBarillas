@@ -4,26 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Inicio de Sesión</title>
-  <!-- Iconos -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-  <!-- CSS personalizado -->
   <link rel="stylesheet" href="CSS/loginEje.css" />
 </head>
 <body>
 
     
     <header class="header-nav">
-        <!-- Logo de la finca (ubicado a la izquierda) -->
         <div class="logo-container">
             <img src="Images/logoFinca.jpeg" alt="Logo Finca Barillas Yescas">
         </div>
     
-        <!-- Nombre de la finca (en el centro) -->
         <div class="logo">
             <h1>Finca Barillas Yescas</h1>
         </div>
     
-        <!-- Barra de navegación (a la derecha) -->
         <nav class="nav-links">
             <a href="index.html">Inicio</a>
             <a href="login.html" class="active">Iniciar Sesión</a>
@@ -31,43 +26,36 @@
         </nav>
     </header>
 
-    <!-- ====== SECCIÓN PRINCIPAL ====== -->
     <section class="hero">
         <h2>BIENVENIDO A FINCA BARILLAS YESCAS</h2>
-        <h3>Registrate con Nosotros para obtener nuestros beneficios.</h3>
+        <h3>Regístrate con Nosotros para obtener nuestros beneficios.</h3>
     </section>
     <div class="wrapper">
-        <form id="loginForm" onsubmit="return validarFormulario(event)">
+        <form id="loginForm">
         <h1>Login</h1>
 
-        <!-- Campo Usuario (Email) -->
         <div class="input-container">
             <input type="text" id="email" placeholder="Correo electrónico" required />
             <i class="bx bxs-user"></i>
         </div>
 
-        <!-- Campo Contraseña -->
         <div class="input-container">
             <input type="password" id="password" placeholder="Contraseña" required />
             <i class="bx bxs-lock-alt"></i>
         </div>
 
-        <!-- Recordar y olvidaste -->
         <div class="remember-forgot">
             <label><input type="checkbox" /> Recordar Contraseña</label>
             <a href="#">¿Olvidaste tu contraseña?</a>
         </div>
 
-        <!-- Botón Iniciar Sesión -->
         <button type="submit" class="btn">Iniciar Sesión</button>
 
-        <!-- Registro -->
         <div class="register-link">
             <p>¿No tienes una cuenta? <a href="register.html">Regístrate aquí</a></p>
         </div>
         </form>
     </div>
-    <!-- ====== PIE DE PÁGINA ====== -->
     <footer class="footer">
         <div class="footer__container">
             <div class="footer__section">

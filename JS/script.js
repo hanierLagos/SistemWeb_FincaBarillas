@@ -1,154 +1,169 @@
-document.getElementById("sobreNosotrosLink").addEventListener("click", function (event) {
-    event.preventDefault();
-    fetch("sobre-nosotros.html")
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("contenido").innerHTML = data;
-        });
-});
+// URL de la API (si fuera necesario para obtener datos del usuario, aunque en este caso no lo es)
+const API_PRODUCTOS = 'http://127.0.0.1:8000/api/Producto/';
 
-// Espera a que todo el contenido del documento (HTML) esté completamente cargado
-document.addEventListener("DOMContentLoaded", function () {
+let carrito = [];
 
-    // Selecciona todos los elementos que tengan las clases 'boton-accion' o 'boton-secundario'
-    const botones = document.querySelectorAll(".boton-accion, .boton-secundario");
-    
-    // Recorre cada uno de los botones encontrados
-    botones.forEach(function (boton) {
+// Función para obtener los encabezados de autenticación JWT
+function getAuthHeaders() {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+        alert('Sesión expirada o no autenticado. Por favor, inicie sesión.');
+        window.location.href = 'login.html';
+        return null;
+    }
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    };
+}
 
-        // Cuando el mouse pasa por encima del botón (hover)
-        boton.addEventListener("mouseover", function () {
-            // Agranda el botón ligeramente (5% más grande)
-            boton.style.transform = "scale(1.05)";
-            // Añade una transición suave de 0.3 segundos al efecto
-            boton.style.transition = "transform 0.3s ease";
-        });
+// Función para decodificar un token JWT (sin necesidad de librerías externas)
+function parseJwt(token) {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    } catch (e) {
+        return null;
+    }
+}
 
-        // Cuando el mouse sale del botón
-        boton.addEventListener("mouseout", function () {
-            // Regresa el botón a su tamaño original
-            boton.style.transform = "scale(1)";
-        });
-    });
-});
-
-
-// Metodo para validar el inicio de sesión
-function validarFormulario(event) {
-    // Obtener los valores del formulario
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
-    var userType = document.getElementById("user-type").value;
-
-    // Validar si los campos están vacíos
-    if (email === "" || password === "" || userType === "") {
-        alert("Por favor, completa todos los campos.");
-        return false;  // No enviar el formulario
+// --- Nueva función para cargar los datos del usuario ---
+function cargarDatosUsuario() {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+        // Redirigir a login si no hay token
+        alert('Sesión expirada. Por favor, inicie sesión de nuevo.');
+        window.location.href = 'login.html';
+        return;
     }
 
-    // Simulación de validación del usuario 
-    var usuarioValido = verificarUsuario(email, password, userType);  // Verificación de existencia de usuario
-
-    // Redirigir a la página correspondiente si el usuario existe
-    if (usuarioValido) {
-        switch (userType) {
-            case "admin":
-                window.location.href = "admin_dashboard.html";  // Redirigir al administrador
-                alert("Inicio de sesión con éxito como Administrador.");
-                break;
-            case "usuario":
-                window.location.href = "moduleClient.html";  // Redirigir al cliente
-                alert("Inicio de sesión con éxito como Cliente.");
-                break;
-            case "gerente":
-                window.location.href = "gerente_dashboard.html";  // Redirigir al Reportero
-                alert("Inicio de sesión con éxito como Gerente.");
-                break;
-            default:
-                alert("Tipo de usuario no válido.");
-                return false;
-        }
-
-        // Limpiar los campos del formulario después de una validación exitosa
-        document.getElementById("email").value = "";
-        document.getElementById("password").value = "";
-        document.getElementById("user-type").selectedIndex = 0;  // Limpiar el combobox (restablecer a la opción por defecto)
+    const payload = parseJwt(token);
+    if (payload && payload.username) {
+        document.getElementById('nombreUsuario').innerText = payload.username;
+        // La API puede devolver el tipo de usuario en el payload, por ejemplo, payload.rol
+        // document.getElementById('tipoUsuario').value = payload.rol || 'Cliente';
     } else {
-        alert("Usuario no existe o los datos son incorrectos.");
+        console.error('Payload del token no válido o incompleto.');
     }
-
-    return false;  // No enviar el formulario, ya que el redireccionamiento se maneja con window.location.href
 }
 
-// Función para simular la verificación del usuario
-function verificarUsuario(email, password, userType) {
-    // Este es un ejemplo simple de validación. 
-    // Simulación de usuarios existentes
-    var usuarios = [
-        { email: "admin@finca.com", password: "1234", userType: "admin" },
-        { email: "cliente@finca.com", password: "cliente123", userType: "usuario" },
-        { email: "gerente@finca.com", password: "gerente123", userType: "gerente" }
-    ];
+// Función para cargar los productos desde la API
+async function cargarProductos() {
+    const container = document.getElementById('productos-containerCatalogo');
+    if (!container) return; 
 
-    // Buscar si el usuario existe en el arreglo
-    var usuarioEncontrado = usuarios.find(function(usuario) {
-        return usuario.email === email && usuario.password === password && usuario.userType === userType;
-    });
+    const headers = getAuthHeaders();
+    if (!headers) return; 
 
-    return usuarioEncontrado !== undefined;  // Si se encuentra el usuario, devuelve true
-}
+    try {
+        const res = await fetch(API_PRODUCTOS, { headers });
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const productos = await res.json();
+        
+        container.innerHTML = ''; 
+        
+        productos.forEach(producto => {
+            const productoDiv = document.createElement('div');
+            productoDiv.classList.add('productoCatalogo');
 
-document.addEventListener('DOMContentLoaded', function () {
-    let carrito = [];
+            const nombreProducto = producto.nombre || 'Producto Desconocido';
+            const precioProducto = parseFloat(producto.precioVenta).toFixed(2) || '0.00';
+            const idProducto = producto.id_producto;
 
-    function agregarAlCarrito(button) {
-        const producto = button.closest('.productoCatalogo');
-        const nombre = producto.querySelector('.producto-nombre').innerText;
-        const precioTexto = producto.querySelector('.producto-precio').innerText;
-        const precio = parseFloat(precioTexto.replace(/[^\d.-]/g, ''));
-
-        const existente = carrito.find(p => p.nombre === nombre);
-
-        if (existente) {
-            existente.cantidad++;
-            existente.total = existente.cantidad * existente.precio;
-        } else {
-            carrito.push({
-                nombre,
-                precio,
-                cantidad: 1,
-                total: precio
-            });
-        }
-
-        actualizarCarrito();
-    }
-
-    function actualizarCarrito() {
-        const tbody = document.getElementById('carrito-body');
-        tbody.innerHTML = '';
-
-        let total = 0;
-
-        carrito.forEach(p => {
-            const fila = document.createElement('tr');
-            fila.innerHTML = `
-                <td>${p.nombre}</td>
-                <td>$${p.precio.toFixed(2)}</td>
-                <td>${p.cantidad}</td>
-                <td>$${p.total.toFixed(2)}</td>
+            productoDiv.innerHTML = `
+                <span class="etiqueta2">${producto.estado === 'Activo' ? 'Disponible' : 'No disponible'}</span>
+                <img src="Images/manzanas.jpeg" alt="${nombreProducto}" class="imagen-producto">
+                <h3 class="producto-nombre">${nombreProducto}</h3>
+                <p class="producto-precio">$${precioProducto}/kg</p>
+                <div class="contenedor-carrito">
+                    <button class="agregar-al-carrito" 
+                            title="Agregar al Carrito" 
+                            onclick="agregarAlCarrito(${idProducto}, '${nombreProducto}', ${precioProducto})">
+                        <img src="Images/anadir-al-carrito.png" alt="Agregar al carrito" class="imagen-carrito">
+                    </button>
+                </div>
             `;
-            tbody.appendChild(fila);
-            total += p.total;
+            container.appendChild(productoDiv);
         });
 
-        document.getElementById('total-carrito').innerText = total.toFixed(2);
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
+        container.innerHTML = `<p>Error al cargar productos. Por favor, intente de nuevo más tarde.</p>`;
     }
+}
 
-    document.querySelectorAll('.agregar-al-carrito').forEach(boton => {
-        boton.addEventListener('click', function () {
-            agregarAlCarrito(boton);
+// Lógica del carrito (sin cambios)
+function agregarAlCarrito(id, nombre, precio) {
+    const existente = carrito.find(p => p.id === id);
+    if (existente) {
+        existente.cantidad++;
+        existente.total = existente.cantidad * existente.precio;
+    } else {
+        carrito.push({
+            id, nombre, precio, cantidad: 1, total: precio
         });
+    }
+    actualizarCarrito();
+}
+
+function actualizarCarrito() {
+    const tbody = document.getElementById('carrito-body');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    let total = 0;
+    carrito.forEach((p) => {
+        const fila = document.createElement('tr');
+        fila.setAttribute('data-id', p.id);
+        fila.innerHTML = `
+            <td>${p.nombre}</td>
+            <td>$${p.precio.toFixed(2)}</td>
+            <td>${p.cantidad}</td>
+            <td>$${p.total.toFixed(2)}</td>
+            <td>
+                <button onclick="eliminarFila(this)" style="background: none; border: none; cursor: pointer;">
+                    <img src="Images/delete.png" alt="Eliminar" width="20" height="20">
+                </button>
+            </td>
+        `;
+        tbody.appendChild(fila);
+        total += p.total;
     });
+    const totalElement = document.getElementById('total-carrito');
+    if (totalElement) {
+        totalElement.innerText = total.toFixed(2);
+    }
+}
+
+function eliminarFila(boton) {
+    const fila = boton.closest('tr');
+    const id = parseInt(fila.getAttribute('data-id'));
+    carrito = carrito.filter(p => p.id !== id);
+    actualizarCarrito();
+}
+
+function toggleCarrito() {
+    const carritoSlide = document.getElementById('carritoSlide');
+    if (carritoSlide) {
+        carritoSlide.classList.toggle('hidden');
+    }
+}
+
+function verCarrito() {
+    alert('Funcionalidad de pedido aún no implementada.');
+}
+
+// Inicialización: Carga los datos del usuario y los productos
+document.addEventListener('DOMContentLoaded', () => {
+    cargarDatosUsuario();
+    cargarProductos();
 });
 
+// Exporta las funciones para que estén disponibles globalmente en el HTML
+window.agregarAlCarrito = agregarAlCarrito;
+window.eliminarFila = eliminarFila;
+window.toggleCarrito = toggleCarrito;
+window.verCarrito = verCarrito;

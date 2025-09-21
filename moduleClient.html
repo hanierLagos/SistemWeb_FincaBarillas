@@ -8,7 +8,6 @@
 </head>
 <body>
 
-    <!-- ====== CABECERA ====== -->
     <header class="header-nav">
         <div class="logo-container">
             <img src="Images/logoFinca.jpeg" alt="Logo Finca Barillas Yescas">
@@ -25,7 +24,6 @@
         </nav>
     </header>
 
-    <!-- ====== CONTENIDO PRINCIPAL ====== -->
     <section class="welcome-section">
         <div class="profile-picture">
             <img src="Images/perfil.png" alt="Foto de Usuario">
@@ -39,56 +37,16 @@
         </div>
     </section>
 
-    <!-- Productos destacados -->
     <section class="productos-destacados">
         <h1>Descubre Nuestros Productos Destacados</h1>
         <p>Variedad de productos frescos disponibles</p>
 
-        <div class="productos-containerCatalogo">
-            <!-- Producto 1 -->
-            <div class="productoCatalogo">
-                <span class="etiqueta2">Nuevo</span>
-                <img src="Images/manzanas.jpeg" alt="Manzanas" class="imagen-producto">
-                <h3 class="producto-nombre">Manzanas</h3>
-                <p class="producto-precio">$2.99/kg</p>
-                <div class="contenedor-carrito">
-                    <button class="agregar-al-carrito" title="Agregar al Carrito">
-                        <img src="Images/anadir-al-carrito.png" alt="Agregar al carrito" class="imagen-carrito">
-                    </button>
-                </div>
+        <div id="productos-containerCatalogo" class="productos-containerCatalogo">
             </div>
-
-            <!-- Producto 2 -->
-            <div class="productoCatalogo">
-                <span class="etiqueta2">Oferta</span>
-                <img src="Images/aguacates.jpeg" alt="Aguacates" class="imagen-producto">
-                <h3 class="producto-nombre">Aguacates</h3>
-                <p class="producto-precio">$1.50/unidad</p>
-                <div class="contenedor-carrito">
-                    <button class="agregar-al-carrito" title="Agregar al Carrito">
-                        <img src="Images/anadir-al-carrito.png" alt="Agregar al carrito" class="imagen-carrito">
-                    </button>
-                </div>
-            </div>
-
-            <!-- Producto 3 -->
-            <div class="productoCatalogo">
-                <span class="etiqueta2">Popular</span>
-                <img src="Images/platanos.jpeg" alt="Plátanos" class="imagen-producto">
-                <h3 class="producto-nombre">Plátanos</h3>
-                <p class="producto-precio">$0.75/unidad</p>
-                <div class="contenedor-carrito">
-                    <button class="agregar-al-carrito" title="Agregar al Carrito">
-                        <img src="Images/anadir-al-carrito.png" alt="Agregar al carrito" class="imagen-carrito">
-                    </button>
-                </div>
-            </div>
-        </div>
     </section>
 
     <button onclick="toggleCarrito()" class="btn-MostrarOcultar"> Mostrar/Ocultar Carrito</button>
 
-    <!-- Carrito -->
     <div class="carrito-slide hidden" id="carritoSlide">
         <h3>Detalles del Pedido</h3>
         <table>
@@ -107,84 +65,7 @@
         <button class="btn-realizar-pedido" onclick="verCarrito()">Realizar Pedido</button>
     </div>
 
-    <!-- JavaScript -->
-    <script>
-        let carrito = [];
-
-        function agregarAlCarrito(button) {
-            const producto = button.closest('.productoCatalogo');
-            const nombre = producto.querySelector('.producto-nombre').innerText;
-            const precioTexto = producto.querySelector('.producto-precio').innerText;
-            const precio = parseFloat(precioTexto.replace(/[^\d.-]/g, ''));
-
-            const existente = carrito.find(p => p.nombre === nombre);
-
-            if (existente) {
-                existente.cantidad++;
-                existente.total = existente.cantidad * existente.precio;
-            } else {
-                carrito.push({
-                    nombre,
-                    precio,
-                    cantidad: 1,
-                    total: precio
-                });
-            }
-
-            actualizarCarrito();
-        }
-
-        function actualizarCarrito() {
-            const tbody = document.getElementById('carrito-body');
-            tbody.innerHTML = '';
-
-            let total = 0;
-
-            carrito.forEach(p => {
-                const fila = document.createElement('tr');
-                fila.setAttribute('data-nombre', p.nombre);
-                fila.innerHTML = `
-                    <td>${p.nombre}</td>
-                    <td>$${p.precio.toFixed(2)}</td>
-                    <td>${p.cantidad}</td>
-                    <td>$${p.total.toFixed(2)}</td>
-                    <td>
-                        <button onclick="eliminarFila(this)" style="background: none; border: none; cursor: pointer;">
-                            <img src="Images/delete.png" alt="Eliminar" width="20" height="20">
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(fila);
-                total += p.total;
-            });
-
-            document.getElementById('total-carrito').innerText = total.toFixed(2);
-        }
-
-        function eliminarFila(boton) {
-            const fila = boton.closest('tr');
-            const nombre = fila.getAttribute('data-nombre');
-            carrito = carrito.filter(p => p.nombre !== nombre);
-            actualizarCarrito();
-        }
-
-        function toggleCarrito() {
-            const carrito = document.getElementById("carritoSlide");
-            carrito.classList.toggle("hidden");
-        }
-
-        function verCarrito() {
-            alert("Funcionalidad de pedido aún no implementada.");
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.agregar-al-carrito').forEach(boton => {
-                boton.addEventListener('click', function () {
-                    agregarAlCarrito(boton);
-                });
-            });
-        });
-    </script>
+    <script src="JS/script.js"></script>
 
     <section class="promociones">
         <h2>Aprovecha Nuestras Ofertas</h2>
@@ -199,12 +80,31 @@
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgGoM0N8AN1vAsPxGKxIgkUyQXtWSNd2gHQcTZ_vkSIdu9IPsSaqHSPF1-cLxXba8aJ8U&usqp=CAU" alt="Promoción 3">
             </div>
         </div>
-    </section> 
+    </section>
 
-    <!-- ====== PIE DE PÁGINA ====== -->
-    <footer>
-        <p>© 2024 Finca Barillas Yescas. Todos los derechos reservados.</p>
-        <p>Contacto: info@fincabarillasyescas.com</p>
+    <footer class="footer">
+        <div class="footer__container">
+            <div class="footer__section">
+            <p class="footer__text">© 2024 Finca Barillas Yescas. Todos los derechos reservados.</p>
+            </div>  
+                <div class="footer__section">
+                    <p class="footer__text">Dirección: Km 114 Carrtera Rivas-Tola</p>
+                    </div>
+                <div class="footer__section">
+                    <p class="footer__text">Visita nuestras redes sociales:</p>
+                <div class="footer__social-icons">
+                    <a class="footer__social-link" href="" target="_blank">
+                        <img class="footer__social-icon" src="Images/faceboook.png" alt="Facebook" width="30" />
+                    </a>
+                    <a class="footer__social-link" href="" target="_blank">
+                        <img class="footer__social-icon" src="Images/Instagram_icon.png" alt="Instagram" width="30" />
+                    </a>
+                    <a class="footer__social-link" href="" target="_blank">
+                        <img class="footer__social-icon" src="Images/whatsaApp.png" alt="WhatsApp" width="30" />
+                    </a>
+                </div>
+            </div>
+        </div>
     </footer>
 
 </body>
