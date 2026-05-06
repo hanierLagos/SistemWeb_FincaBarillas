@@ -1,5 +1,5 @@
 // URL de la API (si fuera necesario para obtener datos del usuario, aunque en este caso no lo es)
-const API_PRODUCTOS = 'http://127.0.0.1:8000/api/Producto/';
+//const API_PRODUCTOS = 'http://127.0.0.1:8000/api/Producto/';
 
 let carrito = [];
 
