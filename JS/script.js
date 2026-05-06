@@ -32,14 +32,14 @@ function parseJwt(token) {
 }
 
 // --- Nueva función para cargar los datos del usuario ---
-//function cargarDatosUsuario() {
-    //const token = localStorage.getItem('accessToken');
-    //if (!token) {
+function cargarDatosUsuario() {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
         // Redirigir a login si no hay token
-     //   alert('Sesión expirada. Por favor, inicie sesión de nuevo.');
-      //  window.location.href = 'login.html';
-       // return;
-   // }
+        alert('Sesión expirada. Por favor, inicie sesión de nuevo.');
+        window.location.href = 'login.html';
+        return;
+ }
 
     const payload = parseJwt(token);
     if (payload && payload.username) {
